@@ -1,13 +1,12 @@
 const https = require("https");
 const querystring = require('querystring');
 
-const baseUrl = '/users/evirunurm/events/public?per_page=100'
-
-
-
+let page = 1;
+let totalPushes = 0;
+const baseUrl = '/users/evirunurm/events/public?per_page=100';
 const options = {
 	hostname: 'api.github.com',
-	path: '/users/evirunurm/events/public?per_page=100',
+	path: baseUrl + "&page=" + page,
 	method: 'GET',
 	headers: {
 		'user-agent': 'node.js',
@@ -16,36 +15,52 @@ const options = {
 }
 
 
-let body = '';
+const getData = async (resolve, reject) => {
 
-const req = https.request(options, res => {
-	console.log(`statusCode: ${res.statusCode}`)
+	 const req = https.request(options, res => {
+		let body = '';
 
-	res.on('data', d => {
-		body += d.toString('utf8');
-		// process.stdout.write(d)
-	})
+		res.on('data', d => {
+			body += d.toString('utf8');
+		});
 
-	res.on("end", () => {
-		
-	})
+		res.on("end", () => {
+			countPushes(body);
+			page++;
 
-})
+			if (page <= 3) {
+				options.path = baseUrl + "&page=" + page
+		    getData(resolve, reject, page);
+		  } else {
+		    return resolve();
+		  }
 
-req.on('error', error => {  
-	console.error(error)
-})
+		});
+
+	});
+
+	req.on('error', error => {  
+		console.error(error)
+	});
+
+	req.end();
+
+}
 
 
-req.end()
+const runScript = async () => {
+    await new Promise((r, j) => getData(r, j));
+    console.log("total", totalPushes); // Return the total number of pushed in the last 90 days.
+};
+
+
+runScript();
 
 
 
-function countPushes(data) {
+
+const countPushes = (data) => {
 	data = JSON.parse(data)
-	console.log("total: ", data.length)
 	const pushEvents = data.filter(event => event.type === "PushEvent");
-	console.log(pushEvents)
-	console.log(pushEvents.length)
-
+	totalPushes += pushEvents.length;
 }
