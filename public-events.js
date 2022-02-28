@@ -1,9 +1,10 @@
 const https = require("https");
-const querystring = require('querystring');
 
 let page = 1;
 let totalPushes = 0;
+
 const baseUrl = '/users/evirunurm/events/public?per_page=100';
+
 const options = {
 	hostname: 'api.github.com',
 	path: baseUrl + "&page=" + page,
@@ -15,7 +16,7 @@ const options = {
 }
 
 
-const getData = async (resolve, reject) => {
+const getEvents = async (resolve, reject) => {
 
 	 const req = https.request(options, res => {
 		let body = '';
@@ -30,7 +31,7 @@ const getData = async (resolve, reject) => {
 
 			if (page <= 3) {
 				options.path = baseUrl + "&page=" + page
-		    getData(resolve, reject, page);
+		    getEvents(resolve, reject, page);
 		  } else {
 		    return resolve();
 		  }
@@ -49,7 +50,7 @@ const getData = async (resolve, reject) => {
 
 
 const runScript = async () => {
-    await new Promise((r, j) => getData(r, j));
+    await new Promise((r, j) => getEvents(r, j));
     console.log("total", totalPushes); // Return the total number of pushed in the last 90 days.
 };
 
