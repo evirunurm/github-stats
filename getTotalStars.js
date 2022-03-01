@@ -30,7 +30,7 @@ const getTotalStars = async (user) => {
 
 			res.on("end", () => {
 				stars += JSON.parse(body).length;
-				return resolve();
+				return resolve(stars);
 			});
 		});
 
@@ -43,27 +43,24 @@ const getTotalStars = async (user) => {
 
 	const getStars = async () => {
 
-		// reposObj.repos.forEach( async (repoName, index) => {
-		// 	await new Promise((resolve, reject) => getStarsForRepo(resolve, reject, repoName));
-		// 	if (reposObj.repos.length === index + 1) {
-		// 	}
-		// });
+		let promises = [];
+
 
 		for (let i = reposObj.repos.length - 1; i >= 0; i--) {
-			new Promise((resolve, reject) => getStarsForRepo(resolve, reject, reposObj.repos[i])).then(() => {
-				console.log("stars: ", stars)
-			});
+			promises.push(new Promise((resolve, reject) => getStarsForRepo(resolve, reject, reposObj.repos[i])));
 		}
+
+		let values = await Promise.all(promises)
+		let totalStars = Math.max(...values);
+		return totalStars;
+		
 	}
 	return getStars();
 }
-
-
 
 async function foo() {
 	let stars = await getTotalStars("evirunurm");
 	console.log(stars)
 }
-
 
 foo();
