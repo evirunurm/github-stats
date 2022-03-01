@@ -1,5 +1,6 @@
 const https = require("https");
 
+
 let page = 1;
 let totalPushes = 0;
 
@@ -45,7 +46,6 @@ const getEvents = async (resolve, reject) => {
 	});
 
 	req.end();
-
 }
 
 

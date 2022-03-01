@@ -1,44 +1,65 @@
 const https = require("https");
+require("dotenv").config()
 
-const username = "evirunurm"
-let repos = [];
+const getRepos = async (user) => {
+	let repos = [];
+	let amountRepos;
+	
+	const options = {
+		hostname: 'api.github.com',
+		path: `https://api.github.com/users/${user}/repos`,
+		method: 'GET',
+		headers: {
+			'user-agent': 'node.js',
+			"accept": "application/vnd.github.v3+json",
+			"authorization" : `token ${process.env.GITHUB_TOKEN}`
+		}
+	}
 
-let amountRepos;
-const options = {
-	hostname: 'api.github.com',
-	path: `https://api.github.com/users/${username}/repos`,
-	method: 'GET',
-	headers: {
-		'user-agent': 'node.js',
-		"accept": "application/vnd.github.v3+json"
-	},
-}
+	const request = (resolve, reject) => {
+		const req = https.request(options, res => {
+			let body = '';
 
-const req = https.request(options, res => {
-	let body = '';
+			res.on("data", data => {
+				body += data.toString("utf8");
+			});
 
-	res.on("data", data => {
-		body += data.toString("utf8");
-	});
+			res.on("end", () => {
+				body = JSON.parse(body);
+				if (Object.keys(body).length === 2) {
+					console.log(body)
+					console.log("Limit exceeded");
+				}
+				countRepos(body);
+				return resolve();
+			});
+		});
 
-	res.on("end", () => {
-		countRepos(body);
-	});
-});
+		req.on("error", error => {
+			console.error(error);
+		});
 
-req.on("error", error => {
-	console.error(error);
-});
+		req.end();
+	}
 
-req.end();
+	const countRepos = (data) => {
+		
+		try {
+			data.forEach( repo => {
+				repos.push(repo.name);
+			});
+		} catch(e) {
+			console.log(e)
+		}
+		amountRepos = repos.length;
+	}
+
+	await new Promise((resolve, reject) => request(resolve, reject));
+	return {
+		repos,
+		amountRepos
+	}
+};
 
 
-const countRepos = (data) => {
-	data = JSON.parse(data);
-	console.log(data)
-	data.forEach( repo => {
-		repos.push(repo.name);
-	});
-	amountRepos = repos.length;
-	console.log(data)
-}
+exports.getRepos = getRepos;
