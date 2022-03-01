@@ -1,9 +1,2 @@
-const repo = require("./getRepos");
+const fetchers = require("./fetchers");
 
-async function foo() {
-	let repositors  = await repo.getRepos("evirunurm");
-	console.log(repositors)
-}
-
-
-foo();

@@ -1,7 +1,7 @@
 const https = require("https");
 require("dotenv").config()
 
-const getRepos = async (user) => {
+const fetchRepos = async (user) => {
 	let repos = [];
 	let amountRepos;
 	
@@ -61,5 +61,4 @@ const getRepos = async (user) => {
 	}
 };
 
-
-exports.getRepos = getRepos;
+exports.fetchRepos = fetchRepos;

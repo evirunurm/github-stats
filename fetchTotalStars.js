@@ -2,7 +2,7 @@ const https = require("https");
 const repo = require("./getRepos");
 require("dotenv").config()
 
-const getTotalStars = async (user) => {
+const fetchTotalStars = async (user) => {
 
 	let reposObj;
 	reposObj = await repo.getRepos(user);
@@ -58,9 +58,4 @@ const getTotalStars = async (user) => {
 	return getStars();
 }
 
-async function foo() {
-	let stars = await getTotalStars("evirunurm");
-	console.log(stars)
-}
-
-foo();
+exports.fetchTotalStars = fetchTotalStars;
