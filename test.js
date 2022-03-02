@@ -1,2 +1,0 @@
-const fetchers = require("./fetchers");
-
