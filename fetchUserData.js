@@ -9,27 +9,26 @@ const fetchUserData = async (user) => {
 	    'Accept': 'application/json',
 	};
 
-
 	const query = `{
-	user(login:"${ user }"){
-	repositories(first:100,privacy:PUBLIC,ownerAffiliations:OWNER){
-	edges{
-	node{
-	forkCount
-	stargazerCount
-	}
-	}
-	}
-	contributionsCollection{
-	contributionCalendar{
-	totalContributions
-	}
-	}
-	followers{
-	totalCount
-	}
-	}
-	}`;
+user(login:"${ user }"){
+repositories(first:100,privacy:PUBLIC,ownerAffiliations:OWNER){
+edges{
+node{
+forkCount
+stargazerCount
+}
+}
+}
+contributionsCollection{
+contributionCalendar{
+totalContributions
+}
+}
+followers{
+totalCount
+}
+}
+}`;
 
 	const options = {
 		hostname: 'api.github.com',
@@ -38,7 +37,6 @@ const fetchUserData = async (user) => {
 	    body: JSON.stringify({query}),
 	    headers: headers,
 	};
-
 
 	const request = (resolve, reject) => {
 		const req = https.request(options, res => {
@@ -49,6 +47,7 @@ const fetchUserData = async (user) => {
 			});
 
 			res.on("end", () => {
+				console.log(body)
 				resolve(JSON.parse(body));
 			});
 		});
@@ -80,5 +79,7 @@ const fetchUserData = async (user) => {
 	let data = await new Promise( (resolve, reject) => request(resolve, reject));
 	return getDataObj(data);
 }
+
+
 
 exports.fetchUserData = fetchUserData;
