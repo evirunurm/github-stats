@@ -2,7 +2,6 @@ const https = require("https");
 require("dotenv").config()
 
 const fetchUserData = async (user) => {
-
 	let body = '';
 	const options = {
 		hostname: 'api.github.com',
@@ -39,7 +38,6 @@ const fetchUserData = async (user) => {
 }
 
 const fetchPushes = async (user) => {
-
 	let page = 1;
 	let totalPushes = 0;
 	const baseUrl = `/users/${user}/events/public?per_page=100`;
@@ -202,7 +200,6 @@ const fetchTotalStars = async (user) => {
 		let totalStars = Math.max(...values);
 		return totalStars;
 	}
-
 	return getStars();
 }
 
