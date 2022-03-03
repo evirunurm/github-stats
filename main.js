@@ -87,17 +87,19 @@ mountText();
 const calcPercentages = (languages) => {
 	console.log(languages);
 	let max = Math.max(...Object.values(languages));
-	let values = Object.values(languages).sort((a, b) => {
-		return a-b;
+	let array = [];
+	Object.keys(languages).reduce((arr, language) => {
+		array.push({
+			language: language,
+			amount: languages[language] })
+	}, 0)
+
+	let sorted = Object.values(array).sort((a, b) => {
+		return a.amount-b.amount;
 	});
-	console.log(values);
-	console.log(Object.keys(languages))
-
-	for (var i = 0; i <= values.length; i++) {
-		if (values[i] === ) {
-
-		}
-	}
+	// Sorted array by amount
+	console.log(array)
+	console.log(sorted)
 
 
 	return []
