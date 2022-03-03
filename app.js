@@ -15,7 +15,9 @@ app.listen(process.env.PORT, (err) => {
 
 app.get("/userdata", async (req, res) => {
 	const username = req.query.username;
-	const data = await userData.fetchUserData(username);
-	res.json(data);
+	// const data = await userData.fetchUserData(username);
+	// res.json(data);
+
+	res.send();
 });
 

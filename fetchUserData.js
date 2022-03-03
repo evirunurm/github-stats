@@ -70,10 +70,10 @@ totalCount
 	const getDataObj = (json) => {
 		let dataObj = {
 			user: user,
+			amountFollowers: json.data.user.followers.totalCount,
 			amountRepos: json.data.user.repositories.edges.length,
 			amountStars: countProperty(json.data.user.repositories.edges, "stargazerCount"),
 			amountForks: countProperty(json.data.user.repositories.edges, "forkCount"),
-			amountFollowers: json.data.user.followers.totalCount,
 			totalContributions: json.data.user.contributionsCollection.contributionCalendar.totalContributions,
 			languages: countLanguages(json.data.user.repositories.edges)
 		}
