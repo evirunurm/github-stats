@@ -16,6 +16,13 @@ edges{
 node{
 forkCount
 stargazerCount
+languages(first: 10){
+edges {
+node {
+name
+}
+}
+}
 }
 }
 }
@@ -47,13 +54,13 @@ totalCount
 			});
 
 			res.on("end", () => {
-				console.log(body)
 				resolve(JSON.parse(body));
 			});
 		});
 
 		req.on("error", (error) => {
 			console.log(error);
+			reject(error);
 		});
 
 		req.write(JSON.stringify({query}));
@@ -68,6 +75,7 @@ totalCount
 			amountForks: countProperty(json.data.user.repositories.edges, "forkCount"),
 			amountFollowers: json.data.user.followers.totalCount,
 			totalContributions: json.data.user.contributionsCollection.contributionCalendar.totalContributions,
+			languages: countLanguages(json.data.user.repositories.edges)
 		}
 		return dataObj;
 	} 
@@ -76,10 +84,26 @@ totalCount
 		return Object.values(nodes).reduce((t, {node}) => t + node[property], 0);
 	}
 
+	const countLanguages = (nodes) => {
+		let languages = []
+		nodes.forEach((node, index) => {
+			let languagesInRepo = node.node.languages.edges.reduce((acc, node) => {
+				languages.push(node.node.name)
+			}, "");
+		});
+
+		languages = languages.reduce((acc, repo) => ({
+			...acc,
+			[repo]: (acc[repo] || 0) + 1
+		}), 0);
+
+		return languages
+	}
+
 	let data = await new Promise( (resolve, reject) => request(resolve, reject));
+	// Example json for testing purposes :
+	// let data = {"data":{"user":{"repositories":{"edges":[{"node":{"forkCount":0,"stargazerCount":0,"languages":{"edges":[{"node":{"name":"JavaScript"}},{"node":{"name":"CSS"}},{"node":{"name":"HTML"}}]}}},{"node":{"forkCount":0,"stargazerCount":0,"languages":{"edges":[]}}},{"node":{"forkCount":0,"stargazerCount":0,"languages":{"edges":[{"node":{"name":"CSS"}},{"node":{"name":"HTML"}},{"node":{"name":"JavaScript"}}]}}},{"node":{"forkCount":0,"stargazerCount":0,"languages":{"edges":[{"node":{"name":"HTML"}}]}}},{"node":{"forkCount":0,"stargazerCount":0,"languages":{"edges":[{"node":{"name":"JavaScript"}},{"node":{"name":"SCSS"}},{"node":{"name":"HTML"}}]}}},{"node":{"forkCount":0,"stargazerCount":0,"languages":{"edges":[{"node":{"name":"JavaScript"}},{"node":{"name":"HTML"}}]}}},{"node":{"forkCount":0,"stargazerCount":0,"languages":{"edges":[{"node":{"name":"Java"}}]}}},{"node":{"forkCount":0,"stargazerCount":0,"languages":{"edges":[{"node":{"name":"HTML"}},{"node":{"name":"Vue"}},{"node":{"name":"JavaScript"}}]}}},{"node":{"forkCount":2,"stargazerCount":4,"languages":{"edges":[{"node":{"name":"HTML"}},{"node":{"name":"Vue"}},{"node":{"name":"JavaScript"}}]}}},{"node":{"forkCount":0,"stargazerCount":0,"languages":{"edges":[{"node":{"name":"HTML"}},{"node":{"name":"Vue"}},{"node":{"name":"JavaScript"}}]}}},{"node":{"forkCount":0,"stargazerCount":0,"languages":{"edges":[{"node":{"name":"HTML"}},{"node":{"name":"Vue"}},{"node":{"name":"TypeScript"}}]}}},{"node":{"forkCount":0,"stargazerCount":0,"languages":{"edges":[{"node":{"name":"HTML"}},{"node":{"name":"JavaScript"}},{"node":{"name":"SCSS"}}]}}},{"node":{"forkCount":0,"stargazerCount":0,"languages":{"edges":[{"node":{"name":"JavaScript"}},{"node":{"name":"HTML"}},{"node":{"name":"CSS"}}]}}},{"node":{"forkCount":0,"stargazerCount":0,"languages":{"edges":[{"node":{"name":"HTML"}},{"node":{"name":"CSS"}}]}}},{"node":{"forkCount":0,"stargazerCount":0,"languages":{"edges":[{"node":{"name":"Java"}}]}}},{"node":{"forkCount":0,"stargazerCount":0,"languages":{"edges":[{"node":{"name":"JavaScript"}}]}}},{"node":{"forkCount":0,"stargazerCount":0,"languages":{"edges":[{"node":{"name":"JavaScript"}},{"node":{"name":"HTML"}}]}}}]},"contributionsCollection":{"contributionCalendar":{"totalContributions":441}},"followers":{"totalCount":7}}}}
 	return getDataObj(data);
 }
-
-
 
 exports.fetchUserData = fetchUserData;
