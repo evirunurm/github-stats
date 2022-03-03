@@ -71,21 +71,56 @@ const cardAttr = {
 	]
 }
 
-
 const mountText = () => {
 	for (let i = 0; i < cardAttr.children.length; i++) {
 		if (i === 0) {
 			cardAttr.children[i] = createText(cardAttr.children[i], {...textAttr, index: ++textAttr.index, dir: "right", title: true});
 			continue;
 		}
-
 		cardAttr.children[i] += `<tspan style="font=${ textAttr.font }; fill: ${ secondaryColor };font-weight: ${ textAttr.weight };">${ Object.values(userData)[i] }</tspan>`;
-
 		cardAttr.children[i] = createText(cardAttr.children[i], {...textAttr, index: ++textAttr.index});
 	}
 }
 
 mountText();
+
+const calcPercentages = (languages) => {
+	console.log(languages);
+	let max = Math.max(...Object.values(languages));
+	let values = Object.values(languages).sort((a, b) => {
+		return a-b;
+	});
+	console.log(values);
+	console.log(Object.keys(languages))
+
+	for (var i = 0; i <= values.length; i++) {
+		if (values[i] === ) {
+
+		}
+	}
+
+
+	return []
+}
+
+const setPercentages = () => {
+	const languagePercentages = calcPercentages(userData.languages);
+
+	let circles = ``;
+
+	for (var i = 0; i <= languagePercentages.length; i++) {
+		circles += `
+			<circle r="5" cx="10" cy="10" fill="transparent"
+			stroke="green"
+			stroke-width="10"
+			stroke-dasharray="calc(${ 20 } * 31.4 / 100) 31.4"
+			transform="rotate(-90) translate(-20)"
+		/>
+		`
+	}
+
+	return circles;
+}
 
 
 const svgElement = `
@@ -96,7 +131,7 @@ const svgElement = `
 	viewBox="0 0 ${ cardAttr.width } ${ cardAttr.height }"
 	fill="none"
 	xmlns="http://www.w3.org/2000/svg"
-	style="${ cardAttr.style }"
+	style="${ cardAttr.style };"
 >
 	<rect
 		height="100%"
@@ -105,6 +140,16 @@ const svgElement = `
 		stroke-opacity=1
 	/> 
 	${ cardAttr.children.map(child => child).join('') }
+	<svg 
+
+		viewBox="-70 -18 ${ cardAttr.width - 200 } ${ cardAttr.height - 100 }" >
+	<circle r="10" cx="10" cy="10" fill="white" />
+	
+
+		${ setPercentages() }
+  </svg>
 </svg>`;
 
 document.body.innerHTML = svgElement
+
+
