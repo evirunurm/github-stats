@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
-const userData = require("./fetchUserData");
-const card = require("./renderCard");
+const userData = require("./utils/fetchUserData");
+const card = require("./utils/renderCard");
 require("dotenv").config();
 
 // const port = process.env.PORT || 8080;
