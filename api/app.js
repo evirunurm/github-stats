@@ -22,6 +22,8 @@ module.exports = async (req, res) => {
 	const username = req.query.username;
 	const data = await userData.fetchUserData(username);
 
+
+	res.setHeader("Content-Type", "image/svg+xml");
 	return res.send(card.renderCard(data));
 };
 
