@@ -4,9 +4,6 @@ const userData = require("./fetchUserData");
 const card = require("./renderCard");
 require("dotenv").config();
 
-app.use(express.urlencoded({ extended: false }));
-app.use(express.json());
-
 const port = process.env.PORT || 8080;
 
 app.listen(process.env.PORT, (err) => {
