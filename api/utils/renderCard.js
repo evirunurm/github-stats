@@ -4,22 +4,20 @@ const renderCard = (userData) => {
 
 	const createText = (text, textAttr) => {
 		const element = `
-			<text
-				viewBox="0 0 16 16"
-				x="${ (textAttr.dir == "right") ? ((cardAttr.width / 2) - (text.length / 2 * ((textAttr.fontSize + 2) / 2))) : (cardAttr.height / (cardAttr.children.length + 2))}"
-				y="${ textAttr.index * (cardAttr.height / (cardAttr.children.length + 2)) + (cardAttr.height / (cardAttr.children.length + 6)) }"
-				width="16"
-				height="16"
-				style="
-					font: ${ (textAttr.title) ? (textAttr.weight + 200) : textAttr.weight } ${ (textAttr.title) ? (textAttr.fontSize + 2) : textAttr.fontSize }px 
-					'Segoe UI', Ubuntu,
-					Sans-Serif;
-					fill:${ textAttr.color }
-				"
-			>
-				${ text }
-			</text>
-		`
+<text
+viewBox="0 0 16 16"
+x="${ (textAttr.dir == "right") ? ((cardAttr.width / 2) - (text.length / 2 * ((textAttr.fontSize + 2) / 2))) : (cardAttr.height / (cardAttr.children.length + 2))}"
+y="${ textAttr.index * (cardAttr.height / (cardAttr.children.length + 2)) + (cardAttr.height / (cardAttr.children.length + 6)) }"
+width="16"
+height="16"
+style="
+font: ${ (textAttr.title) ? (textAttr.weight + 200) : textAttr.weight } ${ (textAttr.title) ? (textAttr.fontSize + 2) : textAttr.fontSize }px 
+'Segoe UI', Ubuntu,
+Sans-Serif;
+fill:${ textAttr.color };
+">
+${ text }
+</text>`
 		return element;
 	}
 
@@ -36,9 +34,7 @@ const renderCard = (userData) => {
 		width: 300,
 		height: 150,
 		background: "#30363D",
-		style: `
-		border-radius: 5px;
-		`,
+		style: `border-radius: 5px;`,
 		children: [
 			`@${ userData.user }'s GitHub`, 
 			`Followers : `,
@@ -100,8 +96,8 @@ const renderCard = (userData) => {
 		let circles = [];
 
 		for (var i = 0; i < languagePercentages.length; i++) {
-			circles.push(`
-				<circle r="5" cx="10" cy="10" fill="transparent"
+			circles.push(
+				`<circle r="5" cx="10" cy="10" fill="transparent"
 					stroke="${ languagePercentages[i].language }"
 					stroke-width="10"
 					stroke-dasharray="calc(${ languagePercentages[i].uses + languagePercentages[i].accum } * 31.4 / 100) 31.4"
@@ -122,7 +118,7 @@ const renderCard = (userData) => {
 		viewBox="0 0 ${ cardAttr.width } ${ cardAttr.height }"
 		fill="none"
 		xmlns="http://www.w3.org/2000/svg"
-		style="${ cardAttr.style };"
+		style="${ cardAttr.style }"
 	>
 		<rect
 			height="100%"
