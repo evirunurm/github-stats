@@ -10,12 +10,7 @@ x="${ (textAttr.dir == "right") ? ((cardAttr.width / 2) - (text.length / 2 * ((t
 y="${ textAttr.index * (cardAttr.height / (cardAttr.children.length + 2)) + (cardAttr.height / (cardAttr.children.length + 6)) }"
 width="16"
 height="16"
-style="
-font: ${ (textAttr.title) ? (textAttr.weight + 200) : textAttr.weight } ${ (textAttr.title) ? (textAttr.fontSize + 2) : textAttr.fontSize }px 
-'Segoe UI', Ubuntu,
-Sans-Serif;
-fill:${ textAttr.color };
-">
+style=" font: ${ (textAttr.title) ? (textAttr.weight + 200) : textAttr.weight } ${ (textAttr.title) ? (textAttr.fontSize + 2) : textAttr.fontSize }px 'Segoe UI', Ubuntu, Sans-Serif; fill:${ textAttr.color }; ">
 ${ text }
 </text>`
 		return element;
@@ -34,10 +29,10 @@ ${ text }
 		width: 300,
 		height: 150,
 		background: "#30363D",
-		style: `border-radius: 5px;`,
+		style: "border-radius: 5px;",
 		children: [
 			`@${ userData.user }'s GitHub`, 
-			`Followers : `,
+			"Followers : ",
 			"Total repositories : ", 
 			"Total stars : ",
 			"Total forks : ",
@@ -124,7 +119,7 @@ ${ text }
 			height="100%"
 			width="100%"
 			fill="${ cardAttr.background }"
-			stroke-opacity=1
+			stroke-opacity="1"
 		/> 
 		${ cardAttr.children.map(child => child).join('') }
 		<svg viewBox="-70 -18 ${ cardAttr.width - 200 } ${ cardAttr.height - 100 }" >
