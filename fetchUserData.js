@@ -19,7 +19,7 @@ stargazerCount
 languages(first: 10){
 edges {
 node {
-name
+color
 }
 }
 }
@@ -88,7 +88,7 @@ totalCount
 		let languages = []
 		nodes.forEach((node, index) => {
 			let languagesInRepo = node.node.languages.edges.reduce((acc, node) => {
-				languages.push(node.node.name)
+				languages.push(node.node.color)
 			}, "");
 		});
 
@@ -102,7 +102,23 @@ totalCount
 
 	let data = await new Promise( (resolve, reject) => request(resolve, reject));
 	// Example json for testing purposes :
-	// let data = {"data":{"user":{"repositories":{"edges":[{"node":{"forkCount":0,"stargazerCount":0,"languages":{"edges":[{"node":{"name":"JavaScript"}},{"node":{"name":"CSS"}},{"node":{"name":"HTML"}}]}}},{"node":{"forkCount":0,"stargazerCount":0,"languages":{"edges":[]}}},{"node":{"forkCount":0,"stargazerCount":0,"languages":{"edges":[{"node":{"name":"CSS"}},{"node":{"name":"HTML"}},{"node":{"name":"JavaScript"}}]}}},{"node":{"forkCount":0,"stargazerCount":0,"languages":{"edges":[{"node":{"name":"HTML"}}]}}},{"node":{"forkCount":0,"stargazerCount":0,"languages":{"edges":[{"node":{"name":"JavaScript"}},{"node":{"name":"SCSS"}},{"node":{"name":"HTML"}}]}}},{"node":{"forkCount":0,"stargazerCount":0,"languages":{"edges":[{"node":{"name":"JavaScript"}},{"node":{"name":"HTML"}}]}}},{"node":{"forkCount":0,"stargazerCount":0,"languages":{"edges":[{"node":{"name":"Java"}}]}}},{"node":{"forkCount":0,"stargazerCount":0,"languages":{"edges":[{"node":{"name":"HTML"}},{"node":{"name":"Vue"}},{"node":{"name":"JavaScript"}}]}}},{"node":{"forkCount":2,"stargazerCount":4,"languages":{"edges":[{"node":{"name":"HTML"}},{"node":{"name":"Vue"}},{"node":{"name":"JavaScript"}}]}}},{"node":{"forkCount":0,"stargazerCount":0,"languages":{"edges":[{"node":{"name":"HTML"}},{"node":{"name":"Vue"}},{"node":{"name":"JavaScript"}}]}}},{"node":{"forkCount":0,"stargazerCount":0,"languages":{"edges":[{"node":{"name":"HTML"}},{"node":{"name":"Vue"}},{"node":{"name":"TypeScript"}}]}}},{"node":{"forkCount":0,"stargazerCount":0,"languages":{"edges":[{"node":{"name":"HTML"}},{"node":{"name":"JavaScript"}},{"node":{"name":"SCSS"}}]}}},{"node":{"forkCount":0,"stargazerCount":0,"languages":{"edges":[{"node":{"name":"JavaScript"}},{"node":{"name":"HTML"}},{"node":{"name":"CSS"}}]}}},{"node":{"forkCount":0,"stargazerCount":0,"languages":{"edges":[{"node":{"name":"HTML"}},{"node":{"name":"CSS"}}]}}},{"node":{"forkCount":0,"stargazerCount":0,"languages":{"edges":[{"node":{"name":"Java"}}]}}},{"node":{"forkCount":0,"stargazerCount":0,"languages":{"edges":[{"node":{"name":"JavaScript"}}]}}},{"node":{"forkCount":0,"stargazerCount":0,"languages":{"edges":[{"node":{"name":"JavaScript"}},{"node":{"name":"HTML"}}]}}}]},"contributionsCollection":{"contributionCalendar":{"totalContributions":441}},"followers":{"totalCount":7}}}}
+	// 	const data = {
+	//   user: 'evirunurm',
+	//   amountFollowers: 7,
+	//   amountRepos: 17,
+	//   amountStars: 4,
+	//   amountForks: 2,
+	//   totalContributions: 447,
+	//   languages: {
+	//     '#f1e05a': 11,
+	//     '#563d7c': 4,
+	//     '#e34c26': 13,
+	//     '#c6538c': 2,
+	//     '#b07219': 2,
+	//     '#41b883': 4,
+	//     '#2b7489': 1
+	//   }
+	// }
 	return getDataObj(data);
 }
 

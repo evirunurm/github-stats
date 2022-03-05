@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const userData = require("./fetchUserData");
+const card = require("./renderCard");
 require("dotenv").config();
 
 app.use(express.urlencoded({ extended: false }));
@@ -15,9 +16,8 @@ app.listen(process.env.PORT, (err) => {
 
 app.get("/userdata", async (req, res) => {
 	const username = req.query.username;
-	// const data = await userData.fetchUserData(username);
-	// res.json(data);
+	const data = await userData.fetchUserData(username);
 
-	res.send();
+	res.send(card.renderCard(data));
 });
 
