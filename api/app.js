@@ -11,10 +11,20 @@ app.listen(process.env.PORT, (err) => {
 	console.log("Server running at http://localhost:" + port);
 });
 
-app.get("/userdata", async (req, res) => {
+app.get("/api/app.js", async (req, res) => {
 	const username = req.query.username;
 	const data = await userData.fetchUserData(username);
 
 	res.send(card.renderCard(data));
 });
+
+console.log("hello");
+
+module.exports = async (req, res) => {
+	const username = req.query.username;
+	const data = await userData.fetchUserData(username);
+
+	return res.send(card.renderCard(data));
+};
+
 
