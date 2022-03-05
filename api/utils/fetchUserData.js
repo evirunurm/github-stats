@@ -4,7 +4,7 @@ require("dotenv").config();
 const fetchUserData = async (user) => {
 	const headers = {
 		'user-agent': 'Github-Stats',
-	    "Authorization": `Bearer ${ process.env.GITHUB_TOKEN }`,
+	    "Authorization": `Bearer ${ GITHUB_TOKEN }`,
 	    "Content-Type": "application/json",
 	    'Accept': 'application/json',
 	};
