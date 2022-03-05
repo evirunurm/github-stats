@@ -2,7 +2,6 @@ const express = require("express");
 const app = express();
 const userData = require("./utils/fetchUserData");
 const card = require("./utils/renderCard");
-require("dotenv").config();
 
 // const port = process.env.PORT || 8080;
 
@@ -24,7 +23,7 @@ module.exports = async (req, res) => {
 
 
 	// res.setHeader("Content-Type", "image/svg+xml");
-	return res.send(card.renderCard(data));
+	return res.send(data);
 };
 
 
