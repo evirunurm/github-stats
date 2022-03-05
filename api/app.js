@@ -23,7 +23,7 @@ module.exports = async (req, res) => {
 	const data = await userData.fetchUserData(username);
 
 
-	res.setHeader("Content-Type", "image/svg+xml");
+	// res.setHeader("Content-Type", "image/svg+xml");
 	return res.send(card.renderCard(data));
 };
 
