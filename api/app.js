@@ -4,21 +4,19 @@ const userData = require("./fetchUserData");
 const card = require("./renderCard");
 require("dotenv").config();
 
-const port = process.env.PORT || 8080;
+// const port = process.env.PORT || 8080;
 
-app.listen(process.env.PORT, (err) => {
-	if (err) throw err;
-	console.log("Server running at http://localhost:" + port);
-});
+// app.listen(process.env.PORT, (err) => {
+// 	if (err) throw err;
+// 	console.log("Server running at http://localhost:" + port);
+// });
 
-app.get("/api/app.js", async (req, res) => {
-	const username = req.query.username;
-	const data = await userData.fetchUserData(username);
+// app.get("/api/app.js", async (req, res) => {
+// 	const username = req.query.username;
+// 	const data = await userData.fetchUserData(username);
 
-	res.send(card.renderCard(data));
-});
-
-console.log("hello");
+// 	res.send(card.renderCard(data));
+// });
 
 module.exports = async (req, res) => {
 	const username = req.query.username;
