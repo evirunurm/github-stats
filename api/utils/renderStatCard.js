@@ -1,12 +1,16 @@
 const svgs = require("./svgs");
 
-const renderStatCard = (userData) => {
-	const lightFontColor = "#A4A5A6";
-	const normalFontColor = "#FFFFFF";
-	const icons = [...svgs.icons];
+const renderStatCard = (userData, color, peng) => {
+	let lightFontColor = "#A4A5A6";
+	let normalFontColor = "#FFFFFF";
+	let icons = [...svgs.icons];
+
+	if (color === "white") {
+		lightFontColor = "#1C1E20";
+		normalFontColor = "#1C1E20";
+	}
 
 	const createText = (text, textAttr) => {
-
 		const element = `
 		<text
 		viewBox="0 0 16 16"
@@ -42,7 +46,7 @@ const renderStatCard = (userData) => {
 	const cardAttr = {
 		width: 290,
 		height: 160,
-		background: "#1C1E20",
+		background: `${ (color === "white") ? "white" : "#1C1E20"}`,
 		style: "border-radius: 5px;",
 		children: [
 			`@${ userData.user }'s GitHub`,
@@ -60,7 +64,7 @@ const renderStatCard = (userData) => {
 				cardAttr.children[i] = createText(cardAttr.children[i], { ...textAttr, index: ++textAttr.index, dir: "right", title: true, color: normalFontColor });
 				continue;
 			}
-			cardAttr.children[i] += `<tspan style="font=${ textAttr.font }; fill: ${ normalFontColor };font-weight: ${ textAttr.weight };">${ Object.values(userData)[i] }</tspan>`;
+			cardAttr.children[i] += `<tspan style="font=${ textAttr.font }; fill: ${ normalFontColor };font-weight: ${ textAttr.weight + 300};">${ Object.values(userData)[i] }</tspan>`;
 			cardAttr.children[i] = createText(cardAttr.children[i], { ...textAttr, index: ++textAttr.index });
 
 		}
@@ -99,7 +103,7 @@ const renderStatCard = (userData) => {
 			${ svgs.githubCat }
 		</svg>
 		<svg viewBox="-${ cardAttr.width - (cardAttr.width / 4) } -${ cardAttr.height - (cardAttr.height / 2.2)} 250 250" >
-			${ svgs.peng }
+			${ (peng === false || color === "white") ? ((color !== "white") ? svgs.nopengW :svgs.nopeng ) : svgs.peng }
 		</svg>
 	</svg>`;
 
