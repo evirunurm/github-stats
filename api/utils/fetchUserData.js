@@ -1,12 +1,13 @@
 const https = require("https");
-require("dotenv").config();
+require("dotenv")
+	.config();
 
 const fetchUserData = async (user) => {
 	const headers = {
 		'user-agent': 'Github-Stats',
-	    "Authorization": `Bearer ${ process.env.GITHUB_TOKEN }`,
-	    "Content-Type": "application/json",
-	    'Accept': 'application/json',
+		"Authorization": `Bearer ${ process.env.GITHUB_TOKEN }`,
+		"Content-Type": "application/json",
+		'Accept': 'application/json',
 	};
 
 	const query = `{
@@ -39,10 +40,10 @@ totalCount
 
 	const options = {
 		hostname: 'api.github.com',
-	    path: 'https://api.github.com/graphql',
-	    method: 'POST',
-	    body: JSON.stringify({query}),
-	    headers: headers,
+		path: 'https://api.github.com/graphql',
+		method: 'POST',
+		body: JSON.stringify({ query }),
+		headers: headers,
 	};
 
 	const request = (resolve, reject) => {
@@ -54,6 +55,7 @@ totalCount
 			});
 
 			res.on("end", () => {
+				console.log(body)
 				resolve(JSON.parse(body));
 			});
 		});
@@ -63,7 +65,7 @@ totalCount
 			reject(error);
 		});
 
-		req.write(JSON.stringify({query}));
+		req.write(JSON.stringify({ query }));
 		req.end();
 	}
 
@@ -78,10 +80,11 @@ totalCount
 			languages: countLanguages(json.data.user.repositories.edges)
 		}
 		return dataObj;
-	} 
+	}
 
 	const countProperty = (nodes, property) => {
-		return Object.values(nodes).reduce((t, {node}) => t + node[property], 0);
+		return Object.values(nodes)
+			.reduce((t, { node }) => t + node[property], 0);
 	}
 
 	const countLanguages = (nodes) => {
@@ -100,24 +103,23 @@ totalCount
 		return languages
 	}
 
-	let data = await new Promise( (resolve, reject) => request(resolve, reject));
+	let data = await new Promise((resolve, reject) => request(resolve, reject));
 	// Example json for testing purposes :
-	// 	const data = {
-	//   user: 'evirunurm',
-	//   amountFollowers: 7,
-	//   amountRepos: 17,
-	//   amountStars: 4,
-	//   amountForks: 2,
-	//   totalContributions: 447,
-	//   languages: {
-	//     '#f1e05a': 11,
-	//     '#563d7c': 4,
-	//     '#e34c26': 13,
-	//     '#c6538c': 2,
-	//     '#b07219': 2,
-	//     '#41b883': 4,
-	//     '#2b7489': 1
-	//   }
+	// const data = {
+	// user: 'evirunurm',
+	// amountFollowers: 7,
+	// amountRepos: 17,
+	// amountStars: 4,
+	// amountForks: 2,
+	// totalContributions: 447,
+	// languages: {
+	// 	'#f1e05a': 11,
+	// 	'#563d7c': 4,
+	// 	'#e34c26': 13,
+	// 	'#c6538c': 2,
+	// 	'#b07219': 2,
+	// 	'#41b883': 4,
+	// 	'#2b7489': 1
 	// }
 	return getDataObj(data);
 }
