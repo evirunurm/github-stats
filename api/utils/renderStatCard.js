@@ -6,8 +6,8 @@ const renderStatCard = (userData, color, peng) => {
 	let icons = [...svgs.icons];
 
 	if (color === "white") {
-		lightFontColor = "#161B22";
-		normalFontColor = "#161B22";
+		lightFontColor = "#30363d";
+		normalFontColor = "#30363d";
 	}
 
 	const createText = (text, textAttr) => {
@@ -46,7 +46,7 @@ const renderStatCard = (userData, color, peng) => {
 	const cardAttr = {
 		width: 290,
 		height: 160,
-		background: `${ (color === "white") ? "white" : "#161B22"}`,
+		background: `${ (color === "white") ? "white" : "#30363d"}`,
 		style: "border-radius: 5px;",
 		children: [
 			`@${ userData.user }'s GitHub`,
