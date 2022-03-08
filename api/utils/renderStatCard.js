@@ -97,8 +97,8 @@ const renderStatCard = (userData, color, peng) => {
 		width="100%"
 		fill="${ cardAttr.background }"
 		stroke-opacity="1"
-		style="stroke:${ normalFontColor };
-		stroke-width:2;"
+		style="stroke:${ lightFontColor };
+		stroke-width:1;"
 		/> 
 		${ cardAttr.children.map(child => child).join('') }
 		${ icons.map(icon => icon).join('') }
