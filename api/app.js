@@ -30,7 +30,9 @@ module.exports = async (req, res) => {
 
     try {
         const data = await userData.fetchUserData(username);
+        const cacheSeconds = 72000;
         res.setHeader("Content-Type", "image/svg+xml");
+        res.setHeader("Cache-Control", `public, max-age=${cacheSeconds}`);
         return res.send(card.renderStatCard(data, color, peng));
     } catch (err) {
         res.send("Couldn´t fetch your data. Double-check your username is the same as your GitHubs's. Don't include the '@'. If it still doen't work plase send an email to evelinviru@gmail.com :(");
