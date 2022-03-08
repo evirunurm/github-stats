@@ -17,13 +17,6 @@ edges{
 node{
 forkCount
 stargazerCount
-languages(first: 10){
-edges {
-node {
-color
-}
-}
-}
 }
 }
 }
@@ -77,7 +70,7 @@ totalCount
 			amountStars: countProperty(json.data.user.repositories.edges, "stargazerCount"),
 			amountForks: countProperty(json.data.user.repositories.edges, "forkCount"),
 			totalContributions: json.data.user.contributionsCollection.contributionCalendar.totalContributions,
-			languages: countLanguages(json.data.user.repositories.edges)
+			// languages: countLanguages(json.data.user.repositories.edges)
 		}
 		return dataObj;
 	}
@@ -87,21 +80,21 @@ totalCount
 			.reduce((t, { node }) => t + node[property], 0);
 	}
 
-	const countLanguages = (nodes) => {
-		let languages = []
-		nodes.forEach((node, index) => {
-			let languagesInRepo = node.node.languages.edges.reduce((acc, node) => {
-				languages.push(node.node.color)
-			}, "");
-		});
+	// const countLanguages = (nodes) => {
+	// 	let languages = []
+	// 	nodes.forEach((node, index) => {
+	// 		let languagesInRepo = node.node.languages.edges.reduce((acc, node) => {
+	// 			languages.push(node.node.color)
+	// 		}, "");
+	// 	});
 
-		languages = languages.reduce((acc, repo) => ({
-			...acc,
-			[repo]: (acc[repo] || 0) + 1
-		}), 0);
+	// 	languages = languages.reduce((acc, repo) => ({
+	// 		...acc,
+	// 		[repo]: (acc[repo] || 0) + 1
+	// 	}), 0);
 
-		return languages
-	}
+	// 	return languages
+	// }
 
 	let data = await new Promise((resolve, reject) => request(resolve, reject));
 	// Example json for testing purposes :

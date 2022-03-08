@@ -14,6 +14,14 @@ const card = require("./utils/renderStatCard");
 
 // });
 
+// languages(first: 10) {
+// edges {
+// node {
+// color
+// }
+// }
+// }
+
 module.exports = async (req, res) => {
     const username = req.query.username;
     try {
