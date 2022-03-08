@@ -6,8 +6,8 @@ const renderStatCard = (userData, color, peng) => {
 	let icons = [...svgs.icons];
 
 	if (color === "white") {
-		lightFontColor = "#30363d";
-		normalFontColor = "#30363d";
+		lightFontColor = "#161B22";
+		normalFontColor = "#161B22";
 	}
 
 	const createText = (text, textAttr) => {
@@ -46,8 +46,8 @@ const renderStatCard = (userData, color, peng) => {
 	const cardAttr = {
 		width: 290,
 		height: 160,
-		background: `${ (color === "white") ? "white" : "#30363d"}`,
-		style: "border-radius: 5px;",
+		background: `${ (color === "white") ? "white" : "#161B22"}`,
+		style: "border-radius: 10px;",
 		children: [
 			`@${ userData.user }'s GitHub`,
 			"Followers: ",
@@ -76,7 +76,6 @@ const renderStatCard = (userData, color, peng) => {
 		}
 	}
 
-
 	mountText();
 	mountIcons();
 
@@ -92,10 +91,14 @@ const renderStatCard = (userData, color, peng) => {
 		style="${ cardAttr.style }"
 	>
 		<rect
+		rx="10"
+		ry="10"
 		height="100%"
 		width="100%"
 		fill="${ cardAttr.background }"
 		stroke-opacity="1"
+		style="stroke:${ normalFontColor };
+		stroke-width:2;"
 		/> 
 		${ cardAttr.children.map(child => child).join('') }
 		${ icons.map(icon => icon).join('') }

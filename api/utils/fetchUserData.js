@@ -97,6 +97,7 @@ totalCount
 	// }
 
 	let data = await new Promise((resolve, reject) => request(resolve, reject));
+
 	// Example json for testing purposes :
 	// let data = JSON.parse(`{"data":{"user":{"repositories":{"edges":[{"node":{"forkCount":0,"stargazerCount":0}},{"node":{"forkCount":0,"stargazerCount":0}},{"node":{"forkCount":0,"stargazerCount":0}},{"node":{"forkCount":0,"stargazerCount":0}},{"node":{"forkCount":0,"stargazerCount":0}},{"node":{"forkCount":0,"stargazerCount":0}},{"node":{"forkCount":0,"stargazerCount":0}},{"node":{"forkCount":0,"stargazerCount":0}},{"node":{"forkCount":2,"stargazerCount":4}},{"node":{"forkCount":0,"stargazerCount":0}},{"node":{"forkCount":0,"stargazerCount":0}},{"node":{"forkCount":0,"stargazerCount":0}},{"node":{"forkCount":0,"stargazerCount":0}},{"node":{"forkCount":0,"stargazerCount":0}},{"node":{"forkCount":0,"stargazerCount":0}},{"node":{"forkCount":0,"stargazerCount":0}},{"node":{"forkCount":0,"stargazerCount":0}}]},"contributionsCollection":{"contributionCalendar":{"totalContributions":467}},"followers":{"totalCount":7}}}}`);
 
