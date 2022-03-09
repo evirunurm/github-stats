@@ -1,1 +1,1 @@
-# GitHub statistic for your README
+# Stats for your README.md
