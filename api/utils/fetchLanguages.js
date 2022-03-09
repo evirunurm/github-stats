@@ -1,6 +1,5 @@
 const https = require("https");
-require("dotenv")
-	.config();
+require("dotenv").config();
 
 const fetchUserData = async (user) => {
 	const headers = {
@@ -16,8 +15,12 @@ const fetchUserData = async (user) => {
 			edges{
 				node{
 					languages (first:10) {
-						names
-						color
+						edges{
+							node {
+								name
+								color
+							}
+						}
 					}
 				}
 			}
@@ -73,6 +76,7 @@ const fetchUserData = async (user) => {
 		let languages = []
 		nodes.forEach((node, index) => {
 			let languagesInRepo = node.node.languages.edges.reduce((acc, node) => {
+				console.log(languages)
 				languages.push(node.node.color)
 			}, "");
 		});
@@ -86,13 +90,20 @@ const fetchUserData = async (user) => {
 		return languages
 	}
 
+	// PROD
 	// let data = await new Promise((resolve, reject) => request(resolve, reject));
+	// console.log(data)
+	// DEV :
 
-	// Example json for testing purposes :
-	let data = JSON.parse(`{"data":{"user":{"repositories":{"edges":[{"node":{"forkCount":0,"stargazerCount":0}},{"node":{"forkCount":0,"stargazerCount":0}},{"node":{"forkCount":0,"stargazerCount":0}},{"node":{"forkCount":0,"stargazerCount":0}},{"node":{"forkCount":0,"stargazerCount":0}},{"node":{"forkCount":0,"stargazerCount":0}},{"node":{"forkCount":0,"stargazerCount":0}},{"node":{"forkCount":0,"stargazerCount":0}},{"node":{"forkCount":2,"stargazerCount":4}},{"node":{"forkCount":0,"stargazerCount":0}},{"node":{"forkCount":0,"stargazerCount":0}},{"node":{"forkCount":0,"stargazerCount":0}},{"node":{"forkCount":0,"stargazerCount":0}},{"node":{"forkCount":0,"stargazerCount":0}},{"node":{"forkCount":0,"stargazerCount":0}},{"node":{"forkCount":0,"stargazerCount":0}},{"node":{"forkCount":0,"stargazerCount":0}}]},"contributionsCollection":{"contributionCalendar":{"totalContributions":467}},"followers":{"totalCount":7}}}}`);
-
+	let data = JSON.parse(`{"data":{"user":{"repositories":{"edges":[{"node":{"languages":{"edges":[{"node":{"name":"JavaScript","color":"#f1e05a"}},{"node":{"name":"CSS","color":"#563d7c"}},{"node":{"name":"HTML","color":"#e34c26"}}]}}},{"node":{"languages":{"edges":[]}}},{"node":{"languages":{"edges":[{"node":{"name":"CSS","color":"#563d7c"}},{"node":{"name":"HTML","color":"#e34c26"}},{"node":{"name":"JavaScript","color":"#f1e05a"}}]}}},{"node":{"languages":{"edges":[{"node":{"name":"HTML","color":"#e34c26"}}]}}},{"node":{"languages":{"edges":[{"node":{"name":"JavaScript","color":"#f1e05a"}},{"node":{"name":"SCSS","color":"#c6538c"}},{"node":{"name":"HTML","color":"#e34c26"}}]}}},{"node":{"languages":{"edges":[{"node":{"name":"JavaScript","color":"#f1e05a"}},{"node":{"name":"HTML","color":"#e34c26"}}]}}},{"node":{"languages":{"edges":[{"node":{"name":"Java","color":"#b07219"}}]}}},{"node":{"languages":{"edges":[{"node":{"name":"HTML","color":"#e34c26"}},{"node":{"name":"Vue","color":"#41b883"}},{"node":{"name":"JavaScript","color":"#f1e05a"}}]}}},{"node":{"languages":{"edges":[{"node":{"name":"HTML","color":"#e34c26"}},{"node":{"name":"Vue","color":"#41b883"}},{"node":{"name":"JavaScript","color":"#f1e05a"}}]}}},{"node":{"languages":{"edges":[{"node":{"name":"HTML","color":"#e34c26"}},{"node":{"name":"Vue","color":"#41b883"}},{"node":{"name":"JavaScript","color":"#f1e05a"}}]}}},{"node":{"languages":{"edges":[{"node":{"name":"HTML","color":"#e34c26"}},{"node":{"name":"Vue","color":"#41b883"}},{"node":{"name":"TypeScript","color":"#2b7489"}}]}}},{"node":{"languages":{"edges":[{"node":{"name":"HTML","color":"#e34c26"}},{"node":{"name":"JavaScript","color":"#f1e05a"}},{"node":{"name":"SCSS","color":"#c6538c"}}]}}},{"node":{"languages":{"edges":[{"node":{"name":"JavaScript","color":"#f1e05a"}},{"node":{"name":"HTML","color":"#e34c26"}},{"node":{"name":"CSS","color":"#563d7c"}}]}}},{"node":{"languages":{"edges":[{"node":{"name":"HTML","color":"#e34c26"}},{"node":{"name":"CSS","color":"#563d7c"}}]}}},{"node":{"languages":{"edges":[{"node":{"name":"Java","color":"#b07219"}}]}}},{"node":{"languages":{"edges":[{"node":{"name":"JavaScript","color":"#f1e05a"}}]}}},{"node":{"languages":{"edges":[{"node":{"name":"JavaScript","color":"#f1e05a"}},{"node":{"name":"HTML","color":"#e34c26"}}]}}}]}}}}`)
 	return getDataObj(data);
 }
 
+async function foo() {
+	let data = await fetchUserData("evirunurm");
+}
 
-exports.fetchUserData = fetchUserData;
+foo();
+
+// PROD
+// exports.fetchUserData = fetchUserData;
