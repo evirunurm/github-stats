@@ -8,7 +8,56 @@
 </head>
 
 <body>
-    <!-- #page>div.logo+ul#navigation>li*5>a{Item $} -->
+    <h1>Stats for your README.md</h1>
+    <hr>
+    <h2>Reference</h2>
+    <h3>GitHub profile statistics</h3>
+    <p>
+        Copy the piece of code from below and paste it into your markdown.<br />
+        <b>Change</b> the value of `username=` to your GitHub's username.
+    </p>
+    <code>
+        [![My Stats](https://github-stats-evirunurm.vercel.app/api/app.js?username=evirunurm)](https://github.com/evirunurm/github-stats)
+    </code>
+    <br />
+    <br />
+    <code>/api/app.js</code> endpoint accepts the following parameters.
+    <br />
+    <br />
+    <table>
+        <tr>
+            <th>
+                Parameter
+            </th>
+            <th>
+                Type
+            </th>
+            <th>
+                Description
+            </th>
+        </tr>
+        <tr>
+            <td><code>username</code></td>
+            <td><code>string</code></td>
+            <td><b>Required</b>. Your GitHub username</td>
+        </tr>
+        <tr>
+            <td><code>color</code></td>
+            <td>"white"</td>
+            <td>Set to "white" if you want background to be white
+        </tr>
+        <tr>
+            <td><code>peng</code></td>
+            <td><code>boolean</code></td>
+            <td>If you want the GitHub icon instead of the cute little penguin, set this to false.</td>
+        </tr>
+    </table>
+    <p>A query parameter must follow the <code>`parameter=value`</code> structure.</p>
+    <p>Several parameters must go separated by <code>`&`</code></p>
+    <h2>Examples</h2>
+    <img height="150" src="https://i.imgur.com/4FkYASY.png">
+    <img height="150" src="https://i.imgur.com/rh1G2X0.png">
+    <img height="150" src="https://i.imgur.com/1GbRlFE.png">
 </body>
 
 </html>
