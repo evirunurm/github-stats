@@ -71,11 +71,6 @@ const fetchUserData = async (user) => {
 	const countLanguages = (edges) => {
 		let languages = [];
 		let index;
-		// [
-		// 	{ name: "JavaScript", color: "#xxxxx", count: 1 },
-		// 	{ name: "HTML", color: "#xxxxx", count: 5 },
-		// 	{ name: "CSS", color: "#xxxxx", count: 10 },
-		// ]
 
 		// Iterate through each repository
 		edges.forEach(function(repoEdge, index) {
@@ -95,7 +90,12 @@ const fetchUserData = async (user) => {
 				});
 			});
 		});
-		console.log(languages)
+
+		// [
+		// 	{ name: "JavaScript", color: "#xxxxx", count: 1 },
+		// 	{ name: "HTML", color: "#xxxxx", count: 5 },
+		// 	{ name: "CSS", color: "#xxxxx", count: 10 },
+		// ]
 		return languages
 	}
 
@@ -110,6 +110,7 @@ const fetchUserData = async (user) => {
 
 async function foo() {
 	let data = await fetchUserData("evirunurm");
+	console.log(data)
 }
 
 foo();
