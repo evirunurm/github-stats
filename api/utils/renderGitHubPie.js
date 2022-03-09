@@ -1,4 +1,4 @@
-const renderCard = (userData) => {
+const renderLanguageCard = (userData) => {
 	const fontColor = "white";
 	const secondaryColor = "pink";
 
@@ -135,4 +135,4 @@ const renderCard = (userData) => {
 }
 
 
-exports.renderCard = renderCard;
+exports.renderLanguageCard = renderLanguageCard;

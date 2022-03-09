@@ -11,25 +11,19 @@ const fetchUserData = async (user) => {
 	};
 
 	const query = `{
-user(login:"${ user }"){
-repositories(first:100,privacy:PUBLIC,ownerAffiliations:OWNER){
-edges{
-node{
-forkCount
-stargazerCount
-}
-}
-}
-contributionsCollection{
-contributionCalendar{
-totalContributions
-}
-}
-followers{
-totalCount
-}
-}
-}`;
+	user(login:"${ user }"){
+		repositories(first:100,privacy:PUBLIC,ownerAffiliations:OWNER){
+			edges{
+				node{
+					languages (first:10) {
+						names
+						color
+					}
+				}
+			}
+		}
+	}
+	}`;
 
 	const options = {
 		hostname: 'api.github.com',
@@ -65,12 +59,7 @@ totalCount
 	const getDataObj = (json) => {
 		let dataObj = {
 			user: user,
-			amountFollowers: json.data.user.followers.totalCount,
-			amountRepos: json.data.user.repositories.edges.length,
-			amountStars: countProperty(json.data.user.repositories.edges, "stargazerCount"),
-			amountForks: countProperty(json.data.user.repositories.edges, "forkCount"),
-			totalContributions: json.data.user.contributionsCollection.contributionCalendar.totalContributions,
-			// languages: countLanguages(json.data.user.repositories.edges)
+			languages: countLanguages(json.data.user.repositories.edges)
 		}
 		return dataObj;
 	}
@@ -80,21 +69,22 @@ totalCount
 			.reduce((t, { node }) => t + node[property], 0);
 	}
 
-	// const countLanguages = (nodes) => {
-	// 	let languages = []
-	// 	nodes.forEach((node, index) => {
-	// 		let languagesInRepo = node.node.languages.edges.reduce((acc, node) => {
-	// 			languages.push(node.node.color)
-	// 		}, "");
-	// 	});
+	const countLanguages = (nodes) => {
+		let languages = []
+		nodes.forEach((node, index) => {
+			let languagesInRepo = node.node.languages.edges.reduce((acc, node) => {
+				languages.push(node.node.color)
+			}, "");
+		});
 
-	// 	languages = languages.reduce((acc, repo) => ({
-	// 		...acc,
-	// 		[repo]: (acc[repo] || 0) + 1
-	// 	}), 0);
+		languages = languages.reduce((acc, repo) => ({
+			...acc,
+			[repo]: (acc[repo] || 0) + 1
+		}), 0);
 
-	// 	return languages
-	// }
+		console.log(languages)
+		return languages
+	}
 
 	// let data = await new Promise((resolve, reject) => request(resolve, reject));
 
@@ -103,5 +93,6 @@ totalCount
 
 	return getDataObj(data);
 }
+
 
 exports.fetchUserData = fetchUserData;

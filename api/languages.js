@@ -1,5 +1,5 @@
 const userData = require("./utils/fetchUserData");
-const card = require("./utils/renderStatCard");
+const card = require("./utils/renderGitHubPie");
 
 // FOR DEV PURPOSES
 const express = require("express");
@@ -9,14 +9,13 @@ app.listen(3000, (err) => {
     console.log("Server running at http://localhost:" + 3000);
 });
 
-app.get("/api/stats.js", async (req, res) => {
+app.get("/api/languages.js", async (req, res) => {
     const username = req.query.username;
     const color = req.query.color;
-    const peng = (req.query.peng !== "false");
     try {
         const data = await userData.fetchUserData(username);
         res.setHeader("Content-Type", "image/svg+xml");
-        return res.send(card.renderStatCard(data, color, peng));
+        return res.send(card.renderLanguageCard(data, color));
     } catch (err) {
         console.log(err);
         res.send("Couldn´t fetch your data. Double-check your username is the same as your GitHubs's. Don't include the '@'. If it still doen't work plase send an email to evelinviru@gmail.com :(");
@@ -33,7 +32,7 @@ app.get("/api/stats.js", async (req, res) => {
 //         const cacheSeconds = 72000;
 //         res.setHeader("Content-Type", "image/svg+xml");
 //         res.setHeader("Cache-Control", `public, max-age=${cacheSeconds}`);
-//         return res.send(card.renderStatCard(data, color, peng));
+//         return res.send(card.renderGitHubPie(data, color));
 //     } catch (err) {
 //         res.send("Couldn´t fetch your data. Double-check your username is the same as your GitHubs's. Don't include the '@'. If it still doen't work plase send an email to evelinviru@gmail.com :(");
 //     }
