@@ -76,14 +76,13 @@ const fetchUserData = async (user) => {
 		let languages = []
 		nodes.forEach((node, index) => {
 			let languagesInRepo = node.node.languages.edges.reduce((acc, node) => {
-				console.log(languages)
-				languages.push(node.node.color)
+				languages.push({ name: node.node.name, color: node.node.color });
 			}, "");
 		});
 
 		languages = languages.reduce((acc, repo) => ({
 			...acc,
-			[repo]: (acc[repo] || 0) + 1
+			[repo.name]: (acc[repo.name] || 0) + 1
 		}), 0);
 
 		console.log(languages)
