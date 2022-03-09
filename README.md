@@ -26,5 +26,8 @@ Several parameters must go separated by `&`
 
 ## Examples
 
-
-<img height="150" src="https://i.imgur.com/4FkYASY.png"><img height="150" src="https://i.imgur.com/rh1G2X0.png"><img height="150" src="https://i.imgur.com/1GbRlFE.png">
+| Parameter &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Output |
+| :-------- | :------- |
+|  &nbsp;default&nbsp;  |<br>&nbsp;&nbsp;&nbsp;&nbsp;<img height="150" src="https://i.imgur.com/4FkYASY.png">&nbsp;&nbsp;&nbsp;&nbsp;<br><br>|
+|  &nbsp;`color=white`&nbsp;  |<br>&nbsp;&nbsp;&nbsp;&nbsp;<img height="150" src="https://i.imgur.com/rh1G2X0.png">&nbsp;&nbsp;&nbsp;&nbsp;<br><br>|
+|  &nbsp;`peng=false`&nbsp;  |<br>&nbsp;&nbsp;&nbsp;&nbsp;<img height="150" src="https://i.imgur.com/1GbRlFE.png">&nbsp;&nbsp;&nbsp;&nbsp;<br><br>|
