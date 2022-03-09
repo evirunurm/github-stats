@@ -1,5 +1,6 @@
 const https = require("https");
-require("dotenv").config();
+require("dotenv")
+	.config();
 
 const fetchUserData = async (user) => {
 	const headers = {
@@ -67,24 +68,33 @@ const fetchUserData = async (user) => {
 		return dataObj;
 	}
 
-	const countProperty = (nodes, property) => {
-		return Object.values(nodes)
-			.reduce((t, { node }) => t + node[property], 0);
-	}
+	const countLanguages = (edges) => {
+		let languages = [];
+		let index;
+		// [
+		// 	{ name: "JavaScript", color: "#xxxxx", count: 1 },
+		// 	{ name: "HTML", color: "#xxxxx", count: 5 },
+		// 	{ name: "CSS", color: "#xxxxx", count: 10 },
+		// ]
 
-	const countLanguages = (nodes) => {
-		let languages = []
-		nodes.forEach((node, index) => {
-			let languagesInRepo = node.node.languages.edges.reduce((acc, node) => {
-				languages.push({ name: node.node.name, color: node.node.color });
-			}, "");
+		// Iterate through each repository
+		edges.forEach(function(repoEdge, index) {
+			// Iterate through each language
+			repoEdge.node.languages.edges.forEach(function(languageEdge, index) {
+				index = languages
+					.map((obj) => { return obj.name })
+					.indexOf(languageEdge.node.name);
+				if (index > -1) {
+					languages[index].count++;
+					return;
+				}
+				languages.push({
+					name: languageEdge.node.name,
+					color: languageEdge.node.color,
+					count: 1
+				});
+			});
 		});
-
-		languages = languages.reduce((acc, repo) => ({
-			...acc,
-			[repo.name]: (acc[repo.name] || 0) + 1
-		}), 0);
-
 		console.log(languages)
 		return languages
 	}
@@ -92,8 +102,8 @@ const fetchUserData = async (user) => {
 	// PROD
 	// let data = await new Promise((resolve, reject) => request(resolve, reject));
 	// console.log(data)
-	// DEV :
 
+	// DEV :
 	let data = JSON.parse(`{"data":{"user":{"repositories":{"edges":[{"node":{"languages":{"edges":[{"node":{"name":"JavaScript","color":"#f1e05a"}},{"node":{"name":"CSS","color":"#563d7c"}},{"node":{"name":"HTML","color":"#e34c26"}}]}}},{"node":{"languages":{"edges":[]}}},{"node":{"languages":{"edges":[{"node":{"name":"CSS","color":"#563d7c"}},{"node":{"name":"HTML","color":"#e34c26"}},{"node":{"name":"JavaScript","color":"#f1e05a"}}]}}},{"node":{"languages":{"edges":[{"node":{"name":"HTML","color":"#e34c26"}}]}}},{"node":{"languages":{"edges":[{"node":{"name":"JavaScript","color":"#f1e05a"}},{"node":{"name":"SCSS","color":"#c6538c"}},{"node":{"name":"HTML","color":"#e34c26"}}]}}},{"node":{"languages":{"edges":[{"node":{"name":"JavaScript","color":"#f1e05a"}},{"node":{"name":"HTML","color":"#e34c26"}}]}}},{"node":{"languages":{"edges":[{"node":{"name":"Java","color":"#b07219"}}]}}},{"node":{"languages":{"edges":[{"node":{"name":"HTML","color":"#e34c26"}},{"node":{"name":"Vue","color":"#41b883"}},{"node":{"name":"JavaScript","color":"#f1e05a"}}]}}},{"node":{"languages":{"edges":[{"node":{"name":"HTML","color":"#e34c26"}},{"node":{"name":"Vue","color":"#41b883"}},{"node":{"name":"JavaScript","color":"#f1e05a"}}]}}},{"node":{"languages":{"edges":[{"node":{"name":"HTML","color":"#e34c26"}},{"node":{"name":"Vue","color":"#41b883"}},{"node":{"name":"JavaScript","color":"#f1e05a"}}]}}},{"node":{"languages":{"edges":[{"node":{"name":"HTML","color":"#e34c26"}},{"node":{"name":"Vue","color":"#41b883"}},{"node":{"name":"TypeScript","color":"#2b7489"}}]}}},{"node":{"languages":{"edges":[{"node":{"name":"HTML","color":"#e34c26"}},{"node":{"name":"JavaScript","color":"#f1e05a"}},{"node":{"name":"SCSS","color":"#c6538c"}}]}}},{"node":{"languages":{"edges":[{"node":{"name":"JavaScript","color":"#f1e05a"}},{"node":{"name":"HTML","color":"#e34c26"}},{"node":{"name":"CSS","color":"#563d7c"}}]}}},{"node":{"languages":{"edges":[{"node":{"name":"HTML","color":"#e34c26"}},{"node":{"name":"CSS","color":"#563d7c"}}]}}},{"node":{"languages":{"edges":[{"node":{"name":"Java","color":"#b07219"}}]}}},{"node":{"languages":{"edges":[{"node":{"name":"JavaScript","color":"#f1e05a"}}]}}},{"node":{"languages":{"edges":[{"node":{"name":"JavaScript","color":"#f1e05a"}},{"node":{"name":"HTML","color":"#e34c26"}}]}}}]}}}}`)
 	return getDataObj(data);
 }
