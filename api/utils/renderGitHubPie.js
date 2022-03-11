@@ -84,11 +84,9 @@ const renderLanguageCard = (userData, color, peng) => {
 
 	const calcPercentages = (languages) => {
 		// Deep copy of an array of objects
-		let langStats = JSON.parse(JSON.stringify(languages));
+		let langStats = JSON.parse(JSON.stringify(languages)).slice(0, 5);
 
 		const totalCount = langStats
-			// Selects the first 5 languages
-			.slice(0, 5)
 			// Gets langauge count
 			.reduce((accumulator, language) => {
 				return accumulator + language.count;
@@ -98,20 +96,14 @@ const renderLanguageCard = (userData, color, peng) => {
 			langStats[i].count = Math.round((100 * langStats[i].count) / totalCount);
 		}
 
-
-		langStats = langStats
+		langStats
 			.sort((a, b) => {
 				return a.count - b.count;
-			});
-
-
-		langStats
+			})
 			.reduce((accumulator, language) => {
 				language.accum = accumulator;
 				return accumulator + language.count
 			}, 0);
-
-		console.log(langStats)
 
 		return langStats;
 	}
