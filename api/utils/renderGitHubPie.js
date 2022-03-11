@@ -63,69 +63,62 @@ const renderLanguageCard = (userData, color, peng) => {
 		height: 160,
 		background: `${ (color === "white") ? "white" : "#161B22"}`,
 		style: "border-radius: 10px;",
-		children: [
-			`@${ userData.user }'s GitHub`,
-			"Followers: ",
-			"Repositories: ",
-			"Stars: ",
-			"Forks: ",
-			"Total Contributions: ",
-		]
+		children: data.languages
 	}
 
-	const mountText = () => {
-		for (let i = 0; i < cardAttr.children.length; i++) {
-			if (i === 0) {
-				cardAttr.children[i] = createText(cardAttr.children[i], { ...textAttr, index: ++textAttr.index, dir: "right", title: true, color: normalFontColor });
-				continue;
-			}
-			cardAttr.children[i] = createText(cardAttr.children[i], { ...textAttr, index: ++textAttr.index });
+	// const mountText = () => {
+	// 	for (let i = 0; i < cardAttr.children.length; i++) {
+	// 		if (i === 0) {
+	// 			cardAttr.children[i] = createText(cardAttr.children[i], { ...textAttr, index: ++textAttr.index, dir: "right", title: true, color: normalFontColor });
+	// 			continue;
+	// 		}
+	// 		cardAttr.children[i] = createText(cardAttr.children[i], { ...textAttr, index: ++textAttr.index });
 
-		}
-	}
+	// 	}
+	// }
 
 
 
-	mountText();
+	// mountText();
 
-	console.log(cardAttr.children[0].textContent)
 
 	const calcPercentages = (languages) => {
-		let langStats = [];
+		// Deep copy of an array of objects
+		let langStats = JSON.parse(JSON.stringify(languages));
 
-		const totalUses = Object.keys(languages)
-			.sort((a, b) => {
-				return a.uses - b.uses;
-			})
-			.slice(0, 4)
+		const totalCount = langStats
+			// Selects the first 5 languages
+			.slice(0, 5)
+			// Gets langauge count
 			.reduce((accumulator, language) => {
-				langStats.push({
-					language: language,
-					uses: languages[language],
-				});
-				return accumulator + languages[language];
+				return accumulator + language.count;
 			}, 0);
 
 		for (let i = 0; i < langStats.length; i++) {
-			langStats[i].uses = Math.round((100 * langStats[i].uses) / totalUses);
+			langStats[i].count = Math.round((100 * langStats[i].count) / totalCount);
 		}
 
-		langStats = Object.values(langStats)
+
+		langStats = langStats
 			.sort((a, b) => {
-				return a.uses - b.uses;
+				return a.count - b.count;
 			});
 
-		Object.values(langStats)
+
+		langStats
 			.reduce((accumulator, language) => {
 				language.accum = accumulator;
-				return accumulator + language.uses
+				return accumulator + language.count
 			}, 0);
+
+		console.log(langStats)
 
 		return langStats;
 	}
 
 	const createCircles = () => {
 		const languagePercentages = calcPercentages(userData.languages);
+		console.log(userData.languages);
 
 		let circles = [];
 
@@ -168,7 +161,7 @@ const renderLanguageCard = (userData, color, peng) => {
 		<svg x="${ ((cardAttr.width / 2) + ((userData.user + "@'s GitHub").length / 2 * ((textAttr.fontSize + 2) / 2))) }" y="${ (cardAttr.height / (cardAttr.children.length) - 6) }" width="19" height="15" viewBox="0 0 19 15" fill="none" xmlns="http://www.w3.org/2000/svg">
 		</svg>
 		<svg viewBox="-${ cardAttr.width - (cardAttr.width / 4) } -${ cardAttr.height - (cardAttr.height / 2.2)} 250 250" >
-			${ (peng === false || color === "white") ? ((color !== "white") ? "svgs.nopengW" :"svgs.nopeng" ) : "svgs.peng" }
+			
 		</svg>
 		<svg viewBox="-70 -18 ${ cardAttr.width - 200 } ${ cardAttr.height - 100 }" >
 
