@@ -41,10 +41,8 @@ const renderLanguageCard = (userData, color, peng) => {
 		return element;
 	}
 
-	const createIcon = (svg, line) => {
-		const icon = `<svg x="${ (cardAttr.height / cardAttr.children.length) }" y="${ line * (cardAttr.height / (cardAttr.children.length + 2)) + (cardAttr.height / (cardAttr.children.length) + 8) }" width="12" height="12" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-		${ svg }
-		</svg>
+	const createIcon = (language, line) => {
+		const icon = `<rect x="${ (cardAttr.height / cardAttr.children.length) + 2 }" y="${ line * (cardAttr.height / (cardAttr.children.length + 2)) + (cardAttr.height / (cardAttr.children.length) + 6) }" width="12" height="12" viewBox="0 0 8 8" fill="${ language.color }"  />
 		`
 		return icon;
 	}
@@ -57,30 +55,6 @@ const renderLanguageCard = (userData, color, peng) => {
 		dir: "left",
 		title: false
 	}
-
-	const cardAttr = {
-		width: 290,
-		height: 160,
-		background: `${ (color === "white") ? "white" : "#161B22"}`,
-		style: "border-radius: 10px;",
-		children: data.languages
-	}
-
-	// const mountText = () => {
-	// 	for (let i = 0; i < cardAttr.children.length; i++) {
-	// 		if (i === 0) {
-	// 			cardAttr.children[i] = createText(cardAttr.children[i], { ...textAttr, index: ++textAttr.index, dir: "right", title: true, color: normalFontColor });
-	// 			continue;
-	// 		}
-	// 		cardAttr.children[i] = createText(cardAttr.children[i], { ...textAttr, index: ++textAttr.index });
-
-	// 	}
-	// }
-
-
-
-	// mountText();
-
 
 	const calcPercentages = (languages) => {
 		// Deep copy of an array of objects
@@ -110,16 +84,15 @@ const renderLanguageCard = (userData, color, peng) => {
 
 	const createCircles = () => {
 		const languagePercentages = calcPercentages(userData.languages);
-		console.log(userData.languages);
 
 		let circles = [];
 
 		for (var i = 0; i < languagePercentages.length; i++) {
 			circles.push(
 				`<circle r="5" cx="10" cy="10" fill="transparent"
-                    stroke="${ languagePercentages[i].language }"
+                    stroke="${ languagePercentages[i].color }"
                     stroke-width="10"
-                    stroke-dasharray="calc(${ languagePercentages[i].uses + languagePercentages[i].accum } * 31.4 / 100) 31.4"
+                    stroke-dasharray="calc(${ languagePercentages[i].count + languagePercentages[i].accum } * 31.4 / 100) 31.4"
                     transform="rotate(-90) translate(-20)"
                 />`
 			);
@@ -127,6 +100,28 @@ const renderLanguageCard = (userData, color, peng) => {
 
 		circles = circles.reverse();
 		return circles;
+	}
+
+	const cardAttr = {
+		width: 290,
+		height: 160,
+		background: `${ (color === "white") ? "white" : "#161B22"}`,
+		style: "border-radius: 10px;",
+		children: calcPercentages(userData.languages)
+			.sort((a, b) => {
+				return b.count - a.count;
+			})
+			.reduce((acc, item) => [...acc, item.name], ["Most used languages"])
+	}
+
+	const mountText = () => {
+		for (let i = 0; i < cardAttr.children.length; i++) {
+			if (i === 0) {
+				cardAttr.children[i] = createText(cardAttr.children[i], { ...textAttr, index: ++textAttr.index, dir: "right", title: true, color: normalFontColor });
+				continue;
+			}
+			cardAttr.children[i] = createText(cardAttr.children[i], { ...textAttr, index: ++textAttr.index });
+		}
 	}
 
 	return `
@@ -149,15 +144,22 @@ const renderLanguageCard = (userData, color, peng) => {
 		style="stroke:${ lightFontColor };
 		stroke-width:1;"
 		/> 
-		${ cardAttr.children.map(child => child).join('') }
+		${ mountText() }
+		${  cardAttr.children.map(child => child).join('') }
+		${ calcPercentages(userData.languages)
+			.sort((a, b) => {
+				return b.count - a.count;
+			})
+			.reduce((acc, item) => [...acc, {name: item.name, color:  item.color}], [])
+			.map( (child, index) => createIcon(child, index + 1)) }
 		<svg x="${ ((cardAttr.width / 2) + ((userData.user + "@'s GitHub").length / 2 * ((textAttr.fontSize + 2) / 2))) }" y="${ (cardAttr.height / (cardAttr.children.length) - 6) }" width="19" height="15" viewBox="0 0 19 15" fill="none" xmlns="http://www.w3.org/2000/svg">
 		</svg>
 		<svg viewBox="-${ cardAttr.width - (cardAttr.width / 4) } -${ cardAttr.height - (cardAttr.height / 2.2)} 250 250" >
 			
 		</svg>
-		<svg viewBox="-70 -18 ${ cardAttr.width - 200 } ${ cardAttr.height - 100 }" >
+		<svg viewBox="-60 -15 ${ cardAttr.width - 200 } ${ cardAttr.height - 120 }" >
 
-            <circle r="10" cx="10" cy="10" fill="white" />
+            <circle r="10" cx="10" cy="10" fill="white" stroke="white" stroke-width="2.6" />
             ${ createCircles() }
 
       </svg>
