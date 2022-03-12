@@ -12,7 +12,7 @@ const renderLanguageCard = (userData, color, peng) => {
 		const element = `
 		<text
 		viewBox="0 0 16 16"
-		x="${ (textAttr.dir == "right") ? ((cardAttr.width / 2) - (text.length / 2 * ((textAttr.fontSize + 2) / 2))) - 10 : 1.8 * (cardAttr.height / 6)}"
+		x="${ (textAttr.dir == "right") ? ((cardAttr.width / 2) - (text.length / 2 * ((textAttr.fontSize + 2) / 2))) : 1.8 * (cardAttr.height / 6)}"
 		y="${ (textAttr.title) ? textAttr.index * (cardAttr.height / (6 + 2)) + (cardAttr.height / (6 + 6)) : textAttr.index * (cardAttr.height / (6 + 2)) + (cardAttr.height / (6) - 3) }"
 		width="16"
 		height="16"
