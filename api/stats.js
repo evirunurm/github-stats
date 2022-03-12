@@ -9,7 +9,7 @@ const card = require("./utils/renderStatCard");
 //     console.log("Server running at http://localhost:" + 3000);
 // });
 
-// app.get("/api/app.js", async (req, res) => {
+// app.get("/api/stats.js", async (req, res) => {
 //     const username = req.query.username;
 //     const color = req.query.color;
 //     const peng = (req.query.peng !== "false");

@@ -109,7 +109,7 @@ const renderStatCard = (userData, color, peng) => {
 			${ (peng === false || color === "white") ? ((color !== "white") ? svgs.nopengW :svgs.nopeng ) : svgs.peng }
 		</svg>
 	</svg>`;
-
 }
+
 
 exports.renderStatCard = renderStatCard;
