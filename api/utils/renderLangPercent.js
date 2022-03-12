@@ -6,11 +6,8 @@ const data = {
 	languages: [
 		{ name: 'JavaScript', color: '#f1e05a', count: 11 },
 		{ name: 'CSS', color: '#563d7c', count: 4 },
-		{ name: 'HTML', color: '#e34c26', count: 13 },
-		{ name: 'SCSS', color: '#c6538c', count: 2 },
-		{ name: 'Java', color: '#b07219', count: 2 },
-		{ name: 'Vue', color: '#41b883', count: 4 },
-		{ name: 'TypeScript', color: '#2b7489', count: 1 }
+		{ name: 'HTML', color: '#e34c26', count: 22 },
+		{ name: 'JavaScript', color: '#f1e05a', count: 11 },
 	]
 }
 
@@ -26,8 +23,8 @@ const renderLanguageCard = (userData, color, peng) => {
 		const element = `
 		<text
 		viewBox="0 0 16 16"
-		x="${ (textAttr.dir == "right") ? ((cardAttr.width / 2) - (text.length / 2 * ((textAttr.fontSize + 2) / 2))) - 10 : 1.8 * (cardAttr.height / cardAttr.children.length)}"
-		y="${ (textAttr.title) ? textAttr.index * (cardAttr.height / (cardAttr.children.length + 2)) + (cardAttr.height / (cardAttr.children.length + 6)) : textAttr.index * (cardAttr.height / (cardAttr.children.length + 2)) + (cardAttr.height / (cardAttr.children.length) - 3) }"
+		x="${ (textAttr.dir == "right") ? ((cardAttr.width / 2) - (text.length / 2 * ((textAttr.fontSize + 2) / 2))) - 10 : 1.8 * (cardAttr.height / 6)}"
+		y="${ (textAttr.title) ? textAttr.index * (cardAttr.height / (6 + 2)) + (cardAttr.height / (6 + 6)) : textAttr.index * (cardAttr.height / (6 + 2)) + (cardAttr.height / (6) - 3) }"
 		width="16"
 		height="16"
 		style=" font: ${ textAttr.weight } ${ (textAttr.title) ? (textAttr.fontSize + 2) : textAttr.fontSize }px 'Segoe UI', Ubuntu, Sans-Serif; fill:${ textAttr.color }; ">
@@ -39,9 +36,8 @@ const renderLanguageCard = (userData, color, peng) => {
 	}
 
 	const createBar = (language, line) => {
-		console.log(language)
-		const icon = `<rect rx="5" ry="5" x="${ 145 }" y="${ line * (cardAttr.height / (cardAttr.children.length + 2)) + (cardAttr.height / (cardAttr.children.length) + 6) }" width="40%" height="12" viewBox="0 0 8 8" opacity='0.5' fill="${ lightFontColor }"  />
-		<rect rx="5" ry="5" x="${ 145 }" y="${ line * (cardAttr.height / (cardAttr.children.length + 2)) + (cardAttr.height / (cardAttr.children.length) + 6) }" width="${ 40 / 100 * language.count }%" height="12" viewBox="0 0 8 8" fill="${ language.color }"  />
+		const icon = `<rect rx="5" ry="5" x="${ 145 }" y="${ line * (cardAttr.height / (6 + 2)) + (cardAttr.height / (6) + 6) }" width="40%" height="12" viewBox="0 0 8 8" opacity='0.5' fill="${ lightFontColor }"  />
+		<rect rx="5" ry="5" x="${ 145 }" y="${ line * (cardAttr.height / (6 + 2)) + (cardAttr.height / (6) + 6) }" width="${ 40 / 100 * language.count }%" height="12" viewBox="0 0 8 8" fill="${ language.color }"  />
 		`
 		return icon;
 	}
