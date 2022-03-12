@@ -1,15 +1,4 @@
-// const svgs = require("./svgs");
-
-
-const data = {
-	user: 'evirunurm',
-	languages: [
-		{ name: 'JavaScript', color: '#f1e05a', count: 11 },
-		{ name: 'CSS', color: '#563d7c', count: 4 },
-		{ name: 'HTML', color: '#e34c26', count: 22 },
-		{ name: 'JavaScript', color: '#f1e05a', count: 11 },
-	]
-}
+const svgs = require("./svgs");
 
 const renderLanguageCard = (userData, color, peng) => {
 	let lightFontColor = "#A4A5A6";
@@ -130,18 +119,9 @@ const renderLanguageCard = (userData, color, peng) => {
 			})
 			.map( (child, index) => createBar(child, index + 1)) }
 		<svg x="${ ((cardAttr.width / 2) + ((userData.user + "@'s GitHub").length / 2 * ((textAttr.fontSize + 2) / 2))) }" y="${ (cardAttr.height / (cardAttr.children.length) - 6) }" width="19" height="15" viewBox="0 0 19 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-			
+			${ color === "white" ? svgs.githubCat : svgs.githubCatW }
 		</svg>
 	</svg>`;
-	// ${ svgs.githubCat }
 }
 
-
-function foo() {
-	let card = renderLanguageCard(data);
-	document.body.innerHTML = card;
-}
-
-foo();
-
-// exports.renderLanguageCard = renderLanguageCard;
+exports.renderLanguageCard = renderLanguageCard;

@@ -1,5 +1,6 @@
-const userData = require("./utils/fetchUserData");
-const card = require("./utils/renderGitHubPie");
+const userData = require("./utils/fetchLanguages");
+const pieChart = require("./utils/renderLangPie");
+const barChart = require("./utils/renderLangPercent");
 
 // FOR DEV PURPOSES
 const express = require("express");
@@ -12,15 +13,32 @@ app.listen(3000, (err) => {
 app.get("/api/languages.js", async (req, res) => {
     const username = req.query.username;
     const color = req.query.color;
+    const pie = (req.query.pie !== "false");
     try {
         const data = await userData.fetchUserData(username);
         res.setHeader("Content-Type", "image/svg+xml");
-        return res.send(card.renderLanguageCard(data, color));
+        if (pie) {
+            return res.send(pieChart.renderLanguageCard(data, color));
+        }
+        return res.send(barChart.renderLanguageCard(data, color));
     } catch (err) {
         console.log(err);
         res.send("Couldn´t fetch your data. Double-check your username is the same as your GitHubs's. Don't include the '@'. If it still doen't work plase send an email to evelinviru@gmail.com :(");
     }
 });
+
+// const data = {
+//     user: 'evirunurm',
+//     languages: [
+//         { name: 'JavaScript', color: '#f1e05a', count: 11 },
+//         { name: 'CSS', color: '#563d7c', count: 4 },
+//         { name: 'HTML', color: '#e34c26', count: 13 },
+//         { name: 'SCSS', color: '#c6538c', count: 2 },
+//         { name: 'Java', color: '#b07219', count: 2 },
+//         { name: 'Vue', color: '#41b883', count: 4 },
+//         { name: 'TypeScript', color: '#2b7489', count: 1 }
+//     ]
+// }
 
 // module.exports = async (req, res) => {
 //     const username = req.query.username;
