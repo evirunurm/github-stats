@@ -1,5 +1,5 @@
-// // const svgs = require("./svgs");
-// import svgs from "./svgs";
+// const svgs = require("./svgs");
+
 
 const data = {
 	user: 'evirunurm',
@@ -14,12 +14,9 @@ const data = {
 	]
 }
 
-
 const renderLanguageCard = (userData, color, peng) => {
 	let lightFontColor = "#A4A5A6";
 	let normalFontColor = "#FFFFFF";
-
-
 	if (color === "white") {
 		lightFontColor = "#161B22";
 		normalFontColor = "#161B22";
@@ -41,8 +38,10 @@ const renderLanguageCard = (userData, color, peng) => {
 		return element;
 	}
 
-	const createIcon = (language, line) => {
-		const icon = `<rect x="${ (cardAttr.height / cardAttr.children.length) + 2 }" y="${ line * (cardAttr.height / (cardAttr.children.length + 2)) + (cardAttr.height / (cardAttr.children.length) + 6) }" width="12" height="12" viewBox="0 0 8 8" fill="${ language.color }"  />
+	const createBar = (language, line) => {
+		console.log(language)
+		const icon = `<rect rx="5" ry="5" x="${ 145 }" y="${ line * (cardAttr.height / (cardAttr.children.length + 2)) + (cardAttr.height / (cardAttr.children.length) + 6) }" width="40%" height="12" viewBox="0 0 8 8" opacity='0.5' fill="${ lightFontColor }"  />
+		<rect rx="5" ry="5" x="${ 145 }" y="${ line * (cardAttr.height / (cardAttr.children.length + 2)) + (cardAttr.height / (cardAttr.children.length) + 6) }" width="${ 40 / 100 * language.count }%" height="12" viewBox="0 0 8 8" fill="${ language.color }"  />
 		`
 		return icon;
 	}
@@ -58,7 +57,8 @@ const renderLanguageCard = (userData, color, peng) => {
 
 	const calcPercentages = (languages) => {
 		// Deep copy of an array of objects
-		let langStats = JSON.parse(JSON.stringify(languages)).slice(0, 5);
+		let langStats = JSON.parse(JSON.stringify(languages))
+			.slice(0, 5);
 
 		const totalCount = langStats
 			// Gets langauge count
@@ -80,26 +80,6 @@ const renderLanguageCard = (userData, color, peng) => {
 			}, 0);
 
 		return langStats;
-	}
-
-	const createCircles = () => {
-		const languagePercentages = calcPercentages(userData.languages);
-
-		let circles = [];
-
-		for (var i = 0; i < languagePercentages.length; i++) {
-			circles.push(
-				`<circle r="5" cx="10" cy="10" fill="transparent"
-                    stroke="${ languagePercentages[i].color }"
-                    stroke-width="10"
-                    stroke-dasharray="calc(${ languagePercentages[i].count + languagePercentages[i].accum } * 31.4 / 100) 31.4"
-                    transform="rotate(-90) translate(-20)"
-                />`
-			);
-		}
-
-		circles = circles.reverse();
-		return circles;
 	}
 
 	const cardAttr = {
@@ -135,42 +115,34 @@ const renderLanguageCard = (userData, color, peng) => {
 		style="${ cardAttr.style }"
 	>
 		<rect
-		rx="10"
-		ry="10"
-		height="100%"
-		width="100%"
-		fill="${ cardAttr.background }"
-		stroke-opacity="1"
-		style="stroke:${ lightFontColor };
-		stroke-width:1;"
+			rx="10"
+			ry="10"
+			height="100%"
+			width="100%"
+			fill="${ cardAttr.background }"
+			stroke-opacity="1"
+			style="
+				stroke:${ lightFontColor };
+				stroke-width:1;
+			"
 		/> 
 		${ mountText() }
-		${  cardAttr.children.map(child => child).join('') }
+		${ cardAttr.children.map(child => child).join('') }
 		${ calcPercentages(userData.languages)
 			.sort((a, b) => {
 				return b.count - a.count;
 			})
-			.reduce((acc, item) => [...acc, {name: item.name, color:  item.color}], [])
-			.map( (child, index) => createIcon(child, index + 1)) }
+			.map( (child, index) => createBar(child, index + 1)) }
 		<svg x="${ ((cardAttr.width / 2) + ((userData.user + "@'s GitHub").length / 2 * ((textAttr.fontSize + 2) / 2))) }" y="${ (cardAttr.height / (cardAttr.children.length) - 6) }" width="19" height="15" viewBox="0 0 19 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-		</svg>
-		<svg viewBox="-${ cardAttr.width - (cardAttr.width / 4) } -${ cardAttr.height - (cardAttr.height / 2.2)} 250 250" >
 			
 		</svg>
-		<svg viewBox="-60 -15 ${ cardAttr.width - 200 } ${ cardAttr.height - 120 }" >
-
-            <circle r="10" cx="10" cy="10" fill="white" stroke="white" stroke-width="2.6" />
-            ${ createCircles() }
-
-      </svg>
 	</svg>`;
-
+	// ${ svgs.githubCat }
 }
 
 
 function foo() {
 	let card = renderLanguageCard(data);
-	console.log(card);
 	document.body.innerHTML = card;
 }
 
