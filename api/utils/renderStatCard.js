@@ -103,7 +103,7 @@ const renderStatCard = (userData, color, peng) => {
 		${ cardAttr.children.map(child => child).join('') }
 		${ icons.map(icon => icon).join('') }
 		<svg x="${ ((cardAttr.width / 2) + ((userData.user + "@'s GitHub").length / 2 * ((textAttr.fontSize + 2) / 2))) }" y="${ (cardAttr.height / (cardAttr.children.length) - 6) }" width="19" height="15" viewBox="0 0 19 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-			${ svgs.githubCat }
+			${ color === "white" ? svgs.githubCat : svgs.githubCatW }
 		</svg>
 		<svg viewBox="-${ cardAttr.width - (cardAttr.width / 4) } -${ cardAttr.height - (cardAttr.height / 2.2)} 250 250" >
 			${ (peng === false || color === "white") ? ((color !== "white") ? svgs.nopengW :svgs.nopeng ) : svgs.peng }
