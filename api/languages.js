@@ -3,29 +3,29 @@ const pieChart = require("./utils/renderLangPie");
 const barChart = require("./utils/renderLangPercent");
 
 // FOR DEV PURPOSES
-const express = require("express");
-const app = express();
-app.listen(3000, (err) => {
-    if (err) throw err;
-    console.log("Server running at http://localhost:" + 3000);
-});
+// const express = require("express");
+// const app = express();
+// app.listen(3000, (err) => {
+//     if (err) throw err;
+//     console.log("Server running at http://localhost:" + 3000);
+// });
 
-app.get("/api/languages.js", async (req, res) => {
-    const username = req.query.username;
-    const color = req.query.color;
-    const pie = (req.query.pie !== "false");
-    try {
-        const data = await userData.fetchUserData(username);
-        res.setHeader("Content-Type", "image/svg+xml");
-        if (pie) {
-            return res.send(pieChart.renderLanguageCard(data, color));
-        }
-        return res.send(barChart.renderLanguageCard(data, color));
-    } catch (err) {
-        console.log(err);
-        res.send("Couldn´t fetch your data. Double-check your username is the same as your GitHubs's. Don't include the '@'. If it still doen't work plase send an email to evelinviru@gmail.com :(");
-    }
-});
+// app.get("/api/languages.js", async (req, res) => {
+//     const username = req.query.username;
+//     const color = req.query.color;
+//     const pie = (req.query.pie !== "false");
+//     try {
+//         const data = await userData.fetchUserData(username);
+//         res.setHeader("Content-Type", "image/svg+xml");
+//         if (pie) {
+//             return res.send(pieChart.renderLanguageCard(data, color));
+//         }
+//         return res.send(barChart.renderLanguageCard(data, color));
+//     } catch (err) {
+//         console.log(err);
+//         res.send("Couldn´t fetch your data. Double-check your username is the same as your GitHubs's. Don't include the '@'. If it still doen't work plase send an email to evelinviru@gmail.com :(");
+//     }
+// });
 
 // const data = {
 //     user: 'evirunurm',
@@ -40,18 +40,22 @@ app.get("/api/languages.js", async (req, res) => {
 //     ]
 // }
 
-// module.exports = async (req, res) => {
-//     const username = req.query.username;
-//     const color = req.query.color;
-//     const peng = (req.query.peng !== "false");
+module.exports = async (req, res) => {
+    const username = req.query.username;
+    const color = req.query.color;
+    const pie = (req.query.pie !== "false");
 
-//     try {
-//         const data = await userData.fetchUserData(username);
-//         const cacheSeconds = 72000;
-//         res.setHeader("Content-Type", "image/svg+xml");
-//         res.setHeader("Cache-Control", `public, max-age=${cacheSeconds}`);
-//         return res.send(card.renderGitHubPie(data, color));
-//     } catch (err) {
-//         res.send("Couldn´t fetch your data. Double-check your username is the same as your GitHubs's. Don't include the '@'. If it still doen't work plase send an email to evelinviru@gmail.com :(");
-//     }
-// };
+    try {
+        const data = await userData.fetchUserData(username);
+        const cacheSeconds = 72000;
+        res.setHeader("Content-Type", "image/svg+xml");
+        res.setHeader("Cache-Control", `public, max-age=${cacheSeconds}`);
+        if (pie) {
+            return res.send(pieChart.renderLanguageCard(data, color));
+        }
+        return res.send(barChart.renderLanguageCard(data, color));
+    } catch (err) {
+        console.log(err);
+        res.send("Couldn´t fetch your data. Double-check your username is the same as your GitHubs's. Don't include the '@'. If it still doen't work plase send an email to evelinviru@gmail.com :(");
+    }
+};
