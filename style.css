@@ -1,0 +1,42 @@
+body {
+	margin: 0;
+	display: grid;
+	place-content: center;
+	font-family: "Segoe UI";
+}
+
+h1,
+h2 {
+	border-bottom: 1px solid black;
+	padding-bottom: 0.5em;
+}
+
+.lang-md {
+	background: rgba(0, 0, 0, 0.7);
+	padding: 1em;
+	border-radius: 5px;
+	color: white;
+}
+
+.hljs-link {
+	color: rgba(200, 200, 244);
+}
+
+table,
+tr,
+th,
+td {
+	border: 1px solid black;
+	border-collapse: collapse;
+}
+
+th,
+td {
+	padding: 1em;
+}
+
+code {
+	background: rgba(0, 0, 0, 0.10);
+	padding: 0 0.5em;
+	border-radius: 2px;
+}

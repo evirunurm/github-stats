@@ -1,5 +1,5 @@
-const userData = require("./utils/fetchUserData");
-const card = require("./utils/renderStatCard");
+const userData = require("../scripts/fetchers/fetchUserData");
+const card = require("../scripts/renderers/renderStatCard");
 
 // FOR DEV PURPOSES
 // const express = require("express");

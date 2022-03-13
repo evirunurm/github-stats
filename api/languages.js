@@ -1,6 +1,6 @@
-const userData = require("./utils/fetchLanguages");
-const pieChart = require("./utils/renderLangPie");
-const barChart = require("./utils/renderLangPercent");
+const userData = require("../scripts/fetchers/fetchLanguages");
+const pieChart = require("../scripts/renderers/renderLangPie");
+const barChart = require("../scripts/renderers/renderLangPercent");
 
 // FOR DEV PURPOSES
 // const express = require("express");

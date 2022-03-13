@@ -1,4 +1,4 @@
-const svgs = require("./svgs");
+const svgs = require("../utils/svgs");
 
 const renderStatCard = (userData, color, peng) => {
 	let lightFontColor = "#A4A5A6";

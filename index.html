@@ -4,60 +4,143 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="./style.css">
+    <title>GitHubStats</title>
 </head>
 
 <body>
-    <h1>Stats for your README.md</h1>
-    <hr>
-    <h2>Reference</h2>
-    <h3>GitHub profile statistics</h3>
+    <h1 id="stats-for-your-readme-md">GitHubStats<br> Stats for your <span class="readme">README.md</span></h1>
+    <h2 id="reference">Reference</h2>
+    <h3 id="github-profile-statistics">GitHub profile statistics</h3>
+    <p>Copy the piece of code from below and paste it into your markdown.<br />
+        <strong>Change</strong> the value of <code>username=</code> to your GitHub&#39;s username.
+        <br></p>
+    <br>
+    <pre><code class="lang-md">  [<span class="hljs-string">![My Stats</span>](<span class="hljs-link">https://github-stats-evirunurm.vercel.app/api/stats.js?username=evirunurm</span>)](<span class="hljs-link">https://github.com/evirunurm/github-stats</span>)
+</code></pre>
+    <br>
     <p>
-        Copy the piece of code from below and paste it into your markdown.<br />
-        <b>Change</b> the value of `username=` to your GitHub's username.
-    </p>
-    <code>
-        [![My Stats](https://github-stats-evirunurm.vercel.app/api/app.js?username=evirunurm)](https://github.com/evirunurm/github-stats)
-    </code>
-    <br />
-    <br />
-    <code>/api/app.js</code> endpoint accepts the following parameters.
-    <br />
-    <br />
+        <code>/api/stats.js</code> endpoint accepts the following parameters.<br>
+        A query parameter must follow the <code>parameter=value</code> structure.<br>
+        Several parameters must go separated by <code>&amp;</code></p>
     <table>
-        <tr>
-            <th>
-                Parameter
-            </th>
-            <th>
-                Type
-            </th>
-            <th>
-                Description
-            </th>
-        </tr>
-        <tr>
-            <td><code>username</code></td>
-            <td><code>string</code></td>
-            <td><b>Required</b>. Your GitHub username</td>
-        </tr>
-        <tr>
-            <td><code>color</code></td>
-            <td>"white"</td>
-            <td>Set to "white" if you want background to be white
-        </tr>
-        <tr>
-            <td><code>peng</code></td>
-            <td><code>boolean</code></td>
-            <td>If you want the GitHub icon instead of the cute little penguin, set this to false.</td>
-        </tr>
+        <thead>
+            <tr>
+                <th style="text-align:left">Parameter</th>
+                <th style="text-align:left">Type</th>
+                <th style="text-align:left">Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td style="text-align:left"><code>username</code></td>
+                <td style="text-align:left"><code>string</code></td>
+                <td style="text-align:left"><strong>Required</strong>. Your GitHub username</td>
+            </tr>
+            <tr>
+                <td style="text-align:left"><code>color</code></td>
+                <td style="text-align:left"><code>&quot;white&quot;</code></td>
+                <td style="text-align:left">Set to &quot;white&quot; if you want the background to be white</td>
+            </tr>
+            <tr>
+                <td style="text-align:left"><code>peng</code></td>
+                <td style="text-align:left"><code>boolean</code></td>
+                <td style="text-align:left">If you want the GitHub icon<br />instead of the cute little <br />penguin, set this to false.</td>
+            </tr>
+        </tbody>
     </table>
-    <p>A query parameter must follow the <code>`parameter=value`</code> structure.</p>
-    <p>Several parameters must go separated by <code>`&`</code></p>
-    <h2>Examples</h2>
-    <img height="150" src="https://i.imgur.com/4FkYASY.png">
-    <img height="150" src="https://i.imgur.com/rh1G2X0.png">
-    <img height="150" src="https://i.imgur.com/1GbRlFE.png">
+    <p><br></p>
+    <h3 id="most-used-languages">Most used languages</h3>
+    <p>Copy the piece of code from below and paste it into your markdown.<br />
+        <strong>Change</strong> the value of <code>username=</code> to your GitHub&#39;s username.
+        <br>
+        <br></p>
+    <pre><code class="lang-md">  [<span class="hljs-string">![My languages</span>](<span class="hljs-link">https://github-stats-evirunurm.vercel.app/api/langauges.js?username=evirunurm</span>)](<span class="hljs-link">https://github.com/evirunurm/github-stats</span>)
+</code></pre>
+    <p><br>
+        <code>/api/languages.js</code> endpoint accepts the following parameters.<br>
+        A query parameter must follow the <code>parameter=value</code> structure.<br>
+        Several parameters must go separated by <code>&amp;</code></p>
+    <table>
+        <thead>
+            <tr>
+                <th style="text-align:left">Parameter</th>
+                <th style="text-align:left">Type</th>
+                <th style="text-align:left">Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td style="text-align:left"><code>username</code></td>
+                <td style="text-align:left"><code>string</code></td>
+                <td style="text-align:left"><strong>Required</strong>. Your GitHub username</td>
+            </tr>
+            <tr>
+                <td style="text-align:left"><code>color</code></td>
+                <td style="text-align:left"><code>&quot;white&quot;</code></td>
+                <td style="text-align:left">Set to &quot;white&quot; if you want the background to be white</td>
+            </tr>
+            <tr>
+                <td style="text-align:left"><code>pie</code></td>
+                <td style="text-align:left"><code>boolean</code></td>
+                <td style="text-align:left">If you don&#39;t want the pie chart but want percentage bars instead, set this to &quot;false&quot;.</td>
+            </tr>
+        </tbody>
+    </table>
+    <p><br></p>
+    <h2 id="examples">Examples</h2>
+    <h3 id="github-profile-statistics">GitHub profile statistics</h3>
+    <table>
+        <thead>
+            <tr>
+                <th style="text-align:left">Parameter</th>
+                <th style="text-align:left">Output</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td style="text-align:left">default</td>
+                <td style="text-align:left"><br><img height="150" src="https://i.imgur.com/4FkYASY.png"><br><br></td>
+            </tr>
+            <tr>
+                <td style="text-align:left"><code>peng=false</code></td>
+                <td style="text-align:left"><br><img height="150" src="https://i.imgur.com/1GbRlFE.png"><br><br></td>
+            </tr>
+            <tr>
+                <td style="text-align:left"><code>color=white</code></td>
+                <td style="text-align:left"><br><img height="150" src="https://i.imgur.com/pqulod5.png"><br><br></td>
+            </tr>
+        </tbody>
+    </table>
+    <p><br></p>
+    <h3 id="most-used-languages">Most used languages</h3>
+    <table>
+        <thead>
+            <tr>
+                <th style="text-align:left">Parameter</th>
+                <th style="text-align:left">Output</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td style="text-align:left">default</td>
+                <td style="text-align:left"><br><img height="150" src="https://i.imgur.com/hQBPCiO.png"><br><br></td>
+            </tr>
+            <tr>
+                <td style="text-align:left"><code>pie=false</code></td>
+                <td style="text-align:left"><br><img height="150" src="https://i.imgur.com/pgQWL8G.png"><br><br></td>
+            </tr>
+            <tr>
+                <td style="text-align:left"><code>color=white</code></td>
+                <td style="text-align:left"><br><img height="150" src="https://i.imgur.com/xJgjdxN.png"><br><br></td>
+            </tr>
+            <tr>
+                <td style="text-align:left"><code>color=white&amp;pie=false</code></td>
+                <td style="text-align:left"><br><img height="150" src="https://i.imgur.com/AxROUMS.png"><br><br></td>
+            </tr>
+        </tbody>
+    </table>
+    <p><br></p>
 </body>
 
 </html>
