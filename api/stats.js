@@ -23,6 +23,7 @@ const card = require("./utils/renderStatCard");
 //     }
 // });
 
+// FOR PROD
 module.exports = async (req, res) => {
     const username = req.query.username;
     const color = req.query.color;

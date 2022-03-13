@@ -54,6 +54,7 @@ const renderLanguageCard = (userData, color) => {
 			langStats[i].count = Math.round((100 * langStats[i].count) / totalCount);
 		}
 
+
 		langStats
 			.sort((a, b) => {
 				return a.count - b.count;
@@ -62,6 +63,11 @@ const renderLanguageCard = (userData, color) => {
 				language.accum = accumulator;
 				return accumulator + language.count
 			}, 0);
+
+		// In case there's 1% error while rounding.
+		if (langStats[langStats.length - 1].accum + langStats[langStats.length - 1].count !== 100) {
+			langStats[langStats.length - 1].count++;
+		}
 
 		return langStats;
 	}
@@ -149,6 +155,5 @@ const renderLanguageCard = (userData, color) => {
 	</svg>`;
 
 }
-
 
 exports.renderLanguageCard = renderLanguageCard;

@@ -111,5 +111,4 @@ const renderStatCard = (userData, color, peng) => {
 	</svg>`;
 }
 
-
 exports.renderStatCard = renderStatCard;
