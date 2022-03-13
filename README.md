@@ -49,17 +49,17 @@ Several parameters must go separated by `&`
 
 | Parameter &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Output                                                                                                                           |
 | :-------- |:---------------------------------------------------------------------------------------------------------------------------------|
-|  &nbsp;default&nbsp;  | <br>&nbsp;&nbsp;&nbsp;&nbsp;<img height="150" src="https://i.imgur.com/4FkYASY.png">&nbsp;&nbsp;&nbsp;&nbsp;<br><br> |
-|  &nbsp;`peng=false`&nbsp;  | <br>&nbsp;&nbsp;&nbsp;&nbsp;<img height="150" src="https://i.imgur.com/1GbRlFE.png">&nbsp;&nbsp;&nbsp;&nbsp;<br><br>            |
-|  &nbsp;`color=white`&nbsp;  | <br>&nbsp;&nbsp;&nbsp;&nbsp;<img height="150" src="https://i.imgur.com/pqulod5.png">&nbsp;&nbsp;&nbsp;&nbsp;<br><br>             |
+|  &nbsp;default&nbsp;  | <br>&nbsp;&nbsp;&nbsp;&nbsp;<img width="260" src="https://i.imgur.com/4FkYASY.png">&nbsp;&nbsp;&nbsp;&nbsp;<br><br> |
+|  &nbsp;`peng=false`&nbsp;  | <br>&nbsp;&nbsp;&nbsp;&nbsp;<img width="260" src="https://i.imgur.com/1GbRlFE.png">&nbsp;&nbsp;&nbsp;&nbsp;<br><br>            |
+|  &nbsp;`color=white`&nbsp;  | <br>&nbsp;&nbsp;&nbsp;&nbsp;<img width="260"  src="https://i.imgur.com/pqulod5.png">&nbsp;&nbsp;&nbsp;&nbsp;<br><br>             |
 <br>
 
 ### Most used languages
 
 | Parameter &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Output |
 |:-----------------------------------------------------------------------------------------------------------------| :------- |
-| &nbsp;default&nbsp; |<br>&nbsp;&nbsp;&nbsp;&nbsp;<img height="150" src="https://i.imgur.com/hQBPCiO.png">&nbsp;&nbsp;&nbsp;&nbsp;<br><br>|
-| &nbsp;`pie=false`&nbsp; |<br>&nbsp;&nbsp;&nbsp;&nbsp;<img height="150" src="https://i.imgur.com/pgQWL8G.png">&nbsp;&nbsp;&nbsp;&nbsp;<br><br>|
-| &nbsp;`color=white`&nbsp;   |<br>&nbsp;&nbsp;&nbsp;&nbsp;<img height="150" src="https://i.imgur.com/xJgjdxN.png">&nbsp;&nbsp;&nbsp;&nbsp;<br><br>|
-| &nbsp;`color=white&pie=false`&nbsp;  |<br>&nbsp;&nbsp;&nbsp;&nbsp;<img height="150" src="https://i.imgur.com/AxROUMS.png">&nbsp;&nbsp;&nbsp;&nbsp;<br><br>|
+| &nbsp;default&nbsp; |<br>&nbsp;&nbsp;&nbsp;&nbsp;<img width="260" src="https://i.imgur.com/hQBPCiO.png">&nbsp;&nbsp;&nbsp;&nbsp;<br><br>|
+| &nbsp;`pie=false`&nbsp; |<br>&nbsp;&nbsp;&nbsp;&nbsp;<img width="260"  src="https://i.imgur.com/pgQWL8G.png">&nbsp;&nbsp;&nbsp;&nbsp;<br><br>|
+| &nbsp;`color=white`&nbsp;   |<br>&nbsp;&nbsp;&nbsp;&nbsp;<img width="260"  src="https://i.imgur.com/xJgjdxN.png">&nbsp;&nbsp;&nbsp;&nbsp;<br><br>|
+| &nbsp;`color=white&pie=false`&nbsp;  |<br>&nbsp;&nbsp;&nbsp;&nbsp;<img width="260"  src="https://i.imgur.com/AxROUMS.png">&nbsp;&nbsp;&nbsp;&nbsp;<br><br>|
 <br>
