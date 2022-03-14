@@ -118,7 +118,7 @@ const renderLanguageCard = (userData, color, peng) => {
 				return b.count - a.count;
 			})
 			.map( (child, index) => createBar(child, index + 1)) }
-		<svg x="${ ((cardAttr.width / 2) + ((userData.user + "@'s GitHub").length / 2 * ((textAttr.fontSize + 2) / 2))) }" y="${ (cardAttr.height / (cardAttr.children.length) - 6) }" width="19" height="15" viewBox="0 0 19 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+		<svg x="${ ((cardAttr.width / 2) + ((userData.user + "@'s GitHub").length / 2 * ((textAttr.fontSize + 2) / 2))) }" y="${ (cardAttr.height / (6) - 6) }" width="19" height="15" viewBox="0 0 19 15" fill="none" xmlns="http://www.w3.org/2000/svg">
 			${ color === "white" ? svgs.githubCat : svgs.githubCatW }
 		</svg>
 	</svg>`;
