@@ -3,6 +3,7 @@ const pieChart = require("../scripts/renderers/renderLangPie");
 const barChart = require("../scripts/renderers/renderLangPercent");
 const { renderErrorCard } = require("../scripts/renderers/renderErrorCard");
 const { VALID_USERNAME } = require("../scripts/utils/validators");
+const { CACHE_DURATION_SECONDS } = require("../scripts/utils/constants");
 
 module.exports = async (req, res) => {
     const username = req.query.username;
@@ -22,9 +23,8 @@ module.exports = async (req, res) => {
 
     try {
         const data = await userData.fetchUserData(username);
-        const cacheSeconds = 72000;
         res.setHeader("Content-Type", "image/svg+xml");
-        res.setHeader("Cache-Control", `public, max-age=${cacheSeconds}`);
+        res.setHeader("Cache-Control", `public, max-age=${CACHE_DURATION_SECONDS}`);
         if (pie) {
             return res.send(pieChart.renderLanguageCard(data, color));
         }
