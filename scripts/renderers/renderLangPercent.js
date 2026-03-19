@@ -89,6 +89,8 @@ const renderLanguageCard = (userData, color, peng) => {
 		}
 	}
 
+	mountText();
+
 	return `
 	<svg 
 		id="userCard"
@@ -110,8 +112,7 @@ const renderLanguageCard = (userData, color, peng) => {
 				stroke:${ lightFontColor };
 				stroke-width:1;
 			"
-		/> 
-		${ mountText() }
+		/>
 		${ cardAttr.children.map(child => child).join('') }
 		${ calcPercentages(userData.languages)
 			.sort((a, b) => {
