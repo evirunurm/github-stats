@@ -56,7 +56,6 @@ module.exports = async (req, res) => {
         }
         return res.send(barChart.renderLanguageCard(data, color));
     } catch (err) {
-        console.log(err);
         res.send("Couldn´t fetch your data. Double-check your username is the same as your GitHubs's. Don't include the '@'. If it still doen't work plase send an email to evelinviru@gmail.com :(");
     }
 };

@@ -46,7 +46,6 @@ const fetchUserData = async (user) => {
 			});
 
 			res.on("end", () => {
-				console.log(body)
 				resolve(JSON.parse(body));
 			});
 		});

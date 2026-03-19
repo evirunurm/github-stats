@@ -48,7 +48,6 @@ totalCount
 			});
 
 			res.on("end", () => {
-				console.log(body)
 				resolve(JSON.parse(body));
 			});
 		});
