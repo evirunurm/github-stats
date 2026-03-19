@@ -26,7 +26,7 @@ interface CardAttr {
 
 const calcPercentages = (languages: LanguageData[]): LanguageDataWithAccum[] => {
 	// Deep copy of an array of objects
-	let langStats: LanguageDataWithAccum[] = JSON.parse(JSON.stringify(languages))
+	const langStats: LanguageDataWithAccum[] = JSON.parse(JSON.stringify(languages))
 		.slice(0, 5);
 
 	const totalCount = langStats

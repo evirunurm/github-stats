@@ -22,7 +22,7 @@ interface CardAttr {
 const renderStatCard = (userData: UserStats, color: string, peng: boolean): string => {
 	let lightFontColor = "#A4A5A6";
 	let normalFontColor = "#FFFFFF";
-	let icons = [...svgs.icons];
+	const icons = [...svgs.icons];
 
 	if (color === "white") {
 		lightFontColor = "#161B22";
