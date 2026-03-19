@@ -1,6 +1,7 @@
 const userData = require("../scripts/fetchers/fetchLanguages");
 const pieChart = require("../scripts/renderers/renderLangPie");
 const barChart = require("../scripts/renderers/renderLangPercent");
+const { renderErrorCard } = require("../scripts/renderers/renderErrorCard");
 const { VALID_USERNAME } = require("../scripts/utils/validators");
 
 module.exports = async (req, res) => {
@@ -29,6 +30,7 @@ module.exports = async (req, res) => {
         }
         return res.send(barChart.renderLanguageCard(data, color));
     } catch (err) {
-        res.status(500).send("Couldn´t fetch your data. Double-check your username is the same as your GitHubs's. Don't include the '@'. If it still doen't work plase send an email to evelinviru@gmail.com :(");
+        res.setHeader("Content-Type", "image/svg+xml");
+        res.status(500).send(renderErrorCard("Could not fetch data"));
     }
 };
