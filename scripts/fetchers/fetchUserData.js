@@ -33,7 +33,7 @@ totalCount
 
 	const options = {
 		hostname: 'api.github.com',
-		path: 'https://api.github.com/graphql',
+		path: '/graphql',
 		method: 'POST',
 		body: JSON.stringify({ query }),
 		headers: headers,

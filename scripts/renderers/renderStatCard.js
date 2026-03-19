@@ -64,7 +64,7 @@ const renderStatCard = (userData, color, peng) => {
 				cardAttr.children[i] = createText(cardAttr.children[i], { ...textAttr, index: ++textAttr.index, dir: "right", title: true, color: normalFontColor });
 				continue;
 			}
-			cardAttr.children[i] += `<tspan style="font=${ textAttr.font }; fill: ${ normalFontColor };font-weight: ${ textAttr.weight + 300};">${ Object.values(userData)[i] }</tspan>`;
+			cardAttr.children[i] += `<tspan style="font-weight: ${ textAttr.weight }; fill: ${ normalFontColor };font-weight: ${ textAttr.weight + 300};">${ Object.values(userData)[i] }</tspan>`;
 			cardAttr.children[i] = createText(cardAttr.children[i], { ...textAttr, index: ++textAttr.index });
 
 		}
