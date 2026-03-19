@@ -1,6 +1,6 @@
-const { CARD_WIDTH, CARD_HEIGHT, ERROR_DIVIDER_Y } = require("../utils/constants");
+import { CARD_WIDTH, CARD_HEIGHT, ERROR_DIVIDER_Y } from "../utils/constants";
 
-const renderErrorCard = (message) => {
+const renderErrorCard = (message: string): string => {
 	return `<svg
 		width="${ CARD_WIDTH }"
 		height="${ CARD_HEIGHT }"

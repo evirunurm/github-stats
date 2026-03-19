@@ -1,17 +1,35 @@
-const svgs = require("../utils/svgs");
-const { CARD_WIDTH, CARD_HEIGHT, DIVIDER_Y } = require("../utils/constants");
+import * as svgs from "../utils/svgs";
+import { CARD_WIDTH, CARD_HEIGHT, DIVIDER_Y } from "../utils/constants";
+import { UserStats } from "../../types";
 
-const renderStatCard = (userData, color, peng) => {
+interface TextAttr {
+	weight: number;
+	index: number;
+	color: string;
+	fontSize: number;
+	dir: string;
+	title: boolean;
+}
+
+interface CardAttr {
+	width: number;
+	height: number;
+	background: string;
+	style: string;
+	children: string[];
+}
+
+const renderStatCard = (userData: UserStats, color: string, peng: boolean): string => {
 	let lightFontColor = "#A4A5A6";
 	let normalFontColor = "#FFFFFF";
-	let icons = [...svgs.icons];
+	const icons = [...svgs.icons];
 
 	if (color === "white") {
 		lightFontColor = "#161B22";
 		normalFontColor = "#161B22";
 	}
 
-	const createText = (text, textAttr) => {
+	const createText = (text: string, textAttr: TextAttr): string => {
 		const element = `
 		<text
 		viewBox="0 0 16 16"
@@ -27,7 +45,7 @@ const renderStatCard = (userData, color, peng) => {
 		return element;
 	}
 
-	const createIcon = (svg, line) => {
+	const createIcon = (svg: string, line: number): string => {
 		const icon = `<svg x="${ (cardAttr.height / cardAttr.children.length) }" y="${ line * (cardAttr.height / (cardAttr.children.length + 2)) + (cardAttr.height / (cardAttr.children.length) + 8) }" width="12" height="12" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
 		${ svg }
 		</svg>
@@ -35,7 +53,7 @@ const renderStatCard = (userData, color, peng) => {
 		return icon;
 	}
 
-	const textAttr = {
+	const textAttr: TextAttr = {
 		weight: 400,
 		index: 0,
 		color: lightFontColor,
@@ -44,7 +62,7 @@ const renderStatCard = (userData, color, peng) => {
 		title: false
 	}
 
-	const cardAttr = {
+	const cardAttr: CardAttr = {
 		width: CARD_WIDTH,
 		height: CARD_HEIGHT,
 		background: `${ (color === "white") ? "white" : "#161B22"}`,
@@ -59,7 +77,7 @@ const renderStatCard = (userData, color, peng) => {
 		]
 	}
 
-	const mountText = () => {
+	const mountText = (): void => {
 		for (let i = 0; i < cardAttr.children.length; i++) {
 			if (i === 0) {
 				cardAttr.children[i] = createText(cardAttr.children[i], { ...textAttr, index: ++textAttr.index, dir: "right", title: true, color: normalFontColor });
@@ -71,7 +89,7 @@ const renderStatCard = (userData, color, peng) => {
 		}
 	}
 
-	const mountIcons = () => {
+	const mountIcons = (): void => {
 		for (let i = 0; i < icons.length; i++) {
 			icons[i] = createIcon(icons[i], i + 1);
 		}
@@ -81,7 +99,7 @@ const renderStatCard = (userData, color, peng) => {
 	mountIcons();
 
 	return `
-	<svg 
+	<svg
 		id="userCard"
 		width="${ cardAttr.width }"
 		height="${ cardAttr.height }"
@@ -99,7 +117,7 @@ const renderStatCard = (userData, color, peng) => {
 		stroke-opacity="1"
 		style="stroke:${ lightFontColor };
 		stroke-width:1;"
-		/> 
+		/>
 		${ cardAttr.children.map(child => child).join('') }
 		${ icons.map(icon => icon).join('') }
 		<svg x="${ ((cardAttr.width / 2) + ((userData.user + "@'s GitHub").length / 2 * ((textAttr.fontSize + 2) / 2))) }" y="${ (cardAttr.height / (cardAttr.children.length) - 6) }" width="19" height="15" viewBox="0 0 19 15" fill="none" xmlns="http://www.w3.org/2000/svg">
