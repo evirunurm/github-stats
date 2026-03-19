@@ -79,7 +79,6 @@ const renderStatCard = (userData, color, peng) => {
 	mountText();
 	mountIcons();
 
-	console.log(cardAttr.children[0].textContent)
 	return `
 	<svg 
 		id="userCard"

@@ -115,7 +115,6 @@ const renderLanguageCard = (userData, color) => {
 	}
 
 	mountText();
-	console.log(color)
 	return `
 	<svg 
 		id="userCard"
