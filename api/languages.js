@@ -1,6 +1,7 @@
 const userData = require("../scripts/fetchers/fetchLanguages");
 const pieChart = require("../scripts/renderers/renderLangPie");
 const barChart = require("../scripts/renderers/renderLangPercent");
+const { VALID_USERNAME } = require("../scripts/utils/validators");
 
 // FOR DEV PURPOSES
 // const express = require("express");
@@ -44,7 +45,18 @@ const barChart = require("../scripts/renderers/renderLangPercent");
 module.exports = async (req, res) => {
     const username = req.query.username;
     const color = req.query.color;
-    const pie = (req.query.pie !== "false");
+    const rawPie = req.query.pie;
+    const pie = (rawPie !== "false");
+
+    if (!VALID_USERNAME.test(username)) {
+        return res.status(400).send('Invalid username');
+    }
+    if (color !== undefined && color !== "white") {
+        return res.status(400).send('Invalid color');
+    }
+    if (rawPie !== undefined && rawPie !== "true" && rawPie !== "false") {
+        return res.status(400).send('Invalid pie');
+    }
 
     try {
         const data = await userData.fetchUserData(username);

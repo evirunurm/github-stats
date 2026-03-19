@@ -1,0 +1,3 @@
+const VALID_USERNAME = /^[a-zA-Z0-9-]{1,39}$/;
+
+exports.VALID_USERNAME = VALID_USERNAME;
