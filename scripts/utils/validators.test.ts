@@ -1,4 +1,4 @@
-import { VALID_USERNAME } from '../scripts/utils/validators';
+import { VALID_USERNAME } from './validators';
 
 describe('VALID_USERNAME', () => {
 	test('accepts valid usernames', () => {

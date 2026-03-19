@@ -1,5 +1,5 @@
-import { renderErrorCard } from '../scripts/renderers/renderErrorCard';
-import { CARD_WIDTH, CARD_HEIGHT } from '../scripts/utils/constants';
+import { renderErrorCard } from './renderErrorCard';
+import { CARD_WIDTH, CARD_HEIGHT } from '../utils/constants';
 
 describe('renderErrorCard', () => {
 	test('returns an SVG string', () => {
