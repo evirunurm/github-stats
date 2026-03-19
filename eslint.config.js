@@ -5,7 +5,7 @@ module.exports = tseslint.config(
   ...tseslint.configs.recommended,
   prettierConfig,
   {
-    files: ["**/*.ts"],
+    files: ["**/*.ts", "**/*.js"],
     languageOptions: {
       parserOptions: {
         project: "./tsconfig.json",
