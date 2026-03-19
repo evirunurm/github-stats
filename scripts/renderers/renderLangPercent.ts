@@ -1,13 +1,31 @@
-const svgs = require("../utils/svgs");
-const { CARD_WIDTH, CARD_HEIGHT, LANG_ITEM_COUNT, DIVIDER_Y } = require("../utils/constants");
+import * as svgs from "../utils/svgs";
+import { CARD_WIDTH, CARD_HEIGHT, LANG_ITEM_COUNT, DIVIDER_Y } from "../utils/constants";
+import { LanguageData, UserLanguageStats } from "../../types";
 
-const calcPercentages = (languages) => {
+interface TextAttr {
+	weight: number;
+	index: number;
+	color: string;
+	fontSize: number;
+	dir: string;
+	title: boolean;
+}
+
+interface CardAttr {
+	width: number;
+	height: number;
+	background: string;
+	style: string;
+	children: string[];
+}
+
+const calcPercentages = (languages: LanguageData[]): LanguageData[] => {
 	// Deep copy of an array of objects
-	let langStats = JSON.parse(JSON.stringify(languages))
+	let langStats: LanguageData[] = JSON.parse(JSON.stringify(languages))
 		.slice(0, 5);
 
 	const totalCount = langStats
-		.reduce((accumulator, language) => {
+		.reduce((accumulator: number, language: LanguageData) => {
 			return accumulator + language.count;
 		}, 0);
 
@@ -18,7 +36,7 @@ const calcPercentages = (languages) => {
 	return langStats;
 }
 
-const renderLanguageCard = (userData, color) => {
+const renderLanguageCard = (userData: UserLanguageStats, color: string): string => {
 	let lightFontColor = "#A4A5A6";
 	let normalFontColor = "#FFFFFF";
 	if (color === "white") {
@@ -26,7 +44,7 @@ const renderLanguageCard = (userData, color) => {
 		normalFontColor = "#161B22";
 	}
 
-	const createText = (text, textAttr) => {
+	const createText = (text: string, textAttr: TextAttr): string => {
 		const element = `
 		<text
 		viewBox="0 0 16 16"
@@ -42,14 +60,14 @@ const renderLanguageCard = (userData, color) => {
 		return element;
 	}
 
-	const createBar = (language, line) => {
+	const createBar = (language: LanguageData, line: number): string => {
 		const icon = `<rect rx="5" ry="5" x="${ CARD_WIDTH / 2 }" y="${ line * (cardAttr.height / (LANG_ITEM_COUNT + 2)) + (cardAttr.height / LANG_ITEM_COUNT + 6) }" width="40%" height="12" viewBox="0 0 8 8" opacity='0.5' fill="${ lightFontColor }"  />
 		<rect rx="5" ry="5" x="${ CARD_WIDTH / 2 }" y="${ line * (cardAttr.height / (LANG_ITEM_COUNT + 2)) + (cardAttr.height / LANG_ITEM_COUNT + 6) }" width="${ 40 / 100 * language.count }%" height="12" viewBox="0 0 8 8" fill="${ language.color }"  />
 		`
 		return icon;
 	}
 
-	const textAttr = {
+	const textAttr: TextAttr = {
 		weight: 400,
 		index: 0,
 		color: lightFontColor,
@@ -60,15 +78,15 @@ const renderLanguageCard = (userData, color) => {
 
 	const languageStats = calcPercentages(userData.languages).sort((a, b) => b.count - a.count);
 
-	const cardAttr = {
+	const cardAttr: CardAttr = {
 		width: CARD_WIDTH,
 		height: CARD_HEIGHT,
 		background: `${ (color === "white") ? "white" : "#161B22"}`,
 		style: "border-radius: 10px;",
-		children: languageStats.reduce((acc, item) => [...acc, item.name], ["Most used languages"])
+		children: languageStats.reduce((acc: string[], item) => [...acc, item.name], ["Most used languages"])
 	}
 
-	const mountText = () => {
+	const mountText = (): void => {
 		for (let i = 0; i < cardAttr.children.length; i++) {
 			if (i === 0) {
 				cardAttr.children[i] = createText(cardAttr.children[i], { ...textAttr, index: ++textAttr.index, dir: "right", title: true, color: normalFontColor });

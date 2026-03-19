@@ -1,27 +1,50 @@
-const svgs = require("../utils/svgs");
-const { CARD_WIDTH, CARD_HEIGHT, LANG_ITEM_COUNT, DIVIDER_Y } = require("../utils/constants");
+import * as svgs from "../utils/svgs";
+import { CARD_WIDTH, CARD_HEIGHT, LANG_ITEM_COUNT, DIVIDER_Y } from "../utils/constants";
+import { LanguageData, UserLanguageStats } from "../../types";
 
-const calcPercentages = (languages) => {
+/** Extended LanguageData with an accumulated percentage offset used for pie chart arc drawing. */
+interface LanguageDataWithAccum extends LanguageData {
+	accum: number;
+}
+
+interface TextAttr {
+	weight: number;
+	index: number;
+	color: string;
+	fontSize: number;
+	dir: string;
+	title: boolean;
+}
+
+interface CardAttr {
+	width: number;
+	height: number;
+	background: string;
+	style: string;
+	children: string[];
+}
+
+const calcPercentages = (languages: LanguageData[]): LanguageDataWithAccum[] => {
 	// Deep copy of an array of objects
-	let langStats = JSON.parse(JSON.stringify(languages))
+	let langStats: LanguageDataWithAccum[] = JSON.parse(JSON.stringify(languages))
 		.slice(0, 5);
 
 	const totalCount = langStats
-		.reduce((accumulator, language) => {
+		.reduce((accumulator: number, language: LanguageDataWithAccum) => {
 			return accumulator + language.count;
 		}, 0);
 
 	for (let i = 0; i < langStats.length - 1; i++) {
 		langStats[i].count = Math.round((100 * langStats[i].count) / totalCount);
 	}
-	const sumOfOthers = langStats.slice(0, -1).reduce((acc, lang) => acc + lang.count, 0);
+	const sumOfOthers = langStats.slice(0, -1).reduce((acc: number, lang: LanguageDataWithAccum) => acc + lang.count, 0);
 	langStats[langStats.length - 1].count = 100 - sumOfOthers;
 
 	langStats
-		.sort((a, b) => {
+		.sort((a: LanguageDataWithAccum, b: LanguageDataWithAccum) => {
 			return a.count - b.count;
 		})
-		.reduce((accumulator, language) => {
+		.reduce((accumulator: number, language: LanguageDataWithAccum) => {
 			language.accum = accumulator;
 			return accumulator + language.count
 		}, 0);
@@ -29,7 +52,7 @@ const calcPercentages = (languages) => {
 	return langStats;
 }
 
-const renderLanguageCard = (userData, color) => {
+const renderLanguageCard = (userData: UserLanguageStats, color: string): string => {
 	let lightFontColor = "#A4A5A6";
 	let normalFontColor = "#FFFFFF";
 	if (color === "white") {
@@ -37,7 +60,7 @@ const renderLanguageCard = (userData, color) => {
 		normalFontColor = "#161B22";
 	}
 
-	const createText = (text, textAttr) => {
+	const createText = (text: string, textAttr: TextAttr): string => {
 		const element = `
 		<text
 		viewBox="0 0 16 16"
@@ -53,13 +76,13 @@ const renderLanguageCard = (userData, color) => {
 		return element;
 	}
 
-	const createIcon = (language, line) => {
+	const createIcon = (language: LanguageDataWithAccum, line: number): string => {
 		const icon = `<rect x="${ (cardAttr.height / LANG_ITEM_COUNT) + 2 }" y="${ line * (cardAttr.height / (LANG_ITEM_COUNT + 2)) + (cardAttr.height / (cardAttr.children.length) + 6) }" width="12" height="12" viewBox="0 0 8 8" fill="${ language.color }"  />
 		`
 		return icon;
 	}
 
-	const textAttr = {
+	const textAttr: TextAttr = {
 		weight: 400,
 		index: 0,
 		color: lightFontColor,
@@ -71,7 +94,7 @@ const renderLanguageCard = (userData, color) => {
 	const languageStats = calcPercentages(userData.languages);
 	const languageStatsDesc = [...languageStats].sort((a, b) => b.count - a.count);
 
-	const createCircles = () => {
+	const createCircles = (): string[] => {
 		return languageStats.map(lang =>
 			`<circle r="5" cx="10" cy="10" fill="transparent"
                     stroke="${ lang.color }"
@@ -82,15 +105,15 @@ const renderLanguageCard = (userData, color) => {
 		).reverse();
 	}
 
-	const cardAttr = {
+	const cardAttr: CardAttr = {
 		width: CARD_WIDTH,
 		height: CARD_HEIGHT,
 		background: `${ (color === "white") ? "white" : "#161B22"}`,
 		style: "border-radius: 10px;",
-		children: languageStatsDesc.reduce((acc, item) => [...acc, item.name], ["Most used languages"])
+		children: languageStatsDesc.reduce((acc: string[], item) => [...acc, item.name], ["Most used languages"])
 	}
 
-	const mountText = () => {
+	const mountText = (): void => {
 		for (let i = 0; i < cardAttr.children.length; i++) {
 			if (i === 0) {
 				cardAttr.children[i] = createText(cardAttr.children[i], { ...textAttr, index: ++textAttr.index, dir: "right", title: true, color: normalFontColor });
