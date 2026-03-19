@@ -46,7 +46,11 @@ const fetchUserData = async (user) => {
 			});
 
 			res.on("end", () => {
-				resolve(JSON.parse(body));
+				try {
+					resolve(JSON.parse(body));
+				} catch (e) {
+					reject(new Error(`Failed to parse GitHub API response: ${e.message}`));
+				}
 			});
 		});
 

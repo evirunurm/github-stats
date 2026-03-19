@@ -45,15 +45,15 @@ const renderLanguageCard = (userData, color) => {
 			.slice(0, 5);
 
 		const totalCount = langStats
-			// Gets langauge count
 			.reduce((accumulator, language) => {
 				return accumulator + language.count;
 			}, 0);
 
-		for (let i = 0; i < langStats.length; i++) {
+		for (let i = 0; i < langStats.length - 1; i++) {
 			langStats[i].count = Math.round((100 * langStats[i].count) / totalCount);
 		}
-
+		const sumOfOthers = langStats.slice(0, -1).reduce((acc, lang) => acc + lang.count, 0);
+		langStats[langStats.length - 1].count = 100 - sumOfOthers;
 
 		langStats
 			.sort((a, b) => {
@@ -64,32 +64,21 @@ const renderLanguageCard = (userData, color) => {
 				return accumulator + language.count
 			}, 0);
 
-		// In case there's 1% error while rounding.
-		if (langStats[langStats.length - 1].accum + langStats[langStats.length - 1].count !== 100) {
-			langStats[langStats.length - 1].count++;
-		}
-
 		return langStats;
 	}
 
+	const languageStats = calcPercentages(userData.languages);
+	const languageStatsDesc = [...languageStats].sort((a, b) => b.count - a.count);
+
 	const createCircles = () => {
-		const languagePercentages = calcPercentages(userData.languages);
-
-		let circles = [];
-
-		for (var i = 0; i < languagePercentages.length; i++) {
-			circles.push(
-				`<circle r="5" cx="10" cy="10" fill="transparent"
-                    stroke="${ languagePercentages[i].color }"
+		return languageStats.map(lang =>
+			`<circle r="5" cx="10" cy="10" fill="transparent"
+                    stroke="${ lang.color }"
                     stroke-width="10"
-                    stroke-dasharray="calc(${ languagePercentages[i].count + languagePercentages[i].accum } * 31.4 / 100) 31.4"
+                    stroke-dasharray="calc(${ lang.count + lang.accum } * 31.4 / 100) 31.4"
                     transform="rotate(-90) translate(-20)"
                 />`
-			);
-		}
-
-		circles = circles.reverse();
-		return circles;
+		).reverse();
 	}
 
 	const cardAttr = {
@@ -97,11 +86,7 @@ const renderLanguageCard = (userData, color) => {
 		height: 160,
 		background: `${ (color === "white") ? "white" : "#161B22"}`,
 		style: "border-radius: 10px;",
-		children: calcPercentages(userData.languages)
-			.sort((a, b) => {
-				return b.count - a.count;
-			})
-			.reduce((acc, item) => [...acc, item.name], ["Most used languages"])
+		children: languageStatsDesc.reduce((acc, item) => [...acc, item.name], ["Most used languages"])
 	}
 
 	const mountText = () => {
@@ -138,12 +123,7 @@ const renderLanguageCard = (userData, color) => {
 			"
 		/> 
 		${ cardAttr.children.map(child => child).join('') }
-		${ calcPercentages(userData.languages)
-			.sort((a, b) => {
-				return b.count - a.count;
-			})
-			.reduce((acc, item) => [...acc, {name: item.name, color:  item.color}], [])
-			.map( (child, index) => createIcon(child, index + 1)) }
+		${ languageStatsDesc.map((child, index) => createIcon(child, index + 1)) }
 		<svg x="${ ((cardAttr.width / 2) + ((userData.user + "@'s GitHub").length / 2 * ((textAttr.fontSize + 2) / 2))) }" y="${ (cardAttr.height / (6) - 6) }" width="19" height="15" viewBox="0 0 19 15" fill="none" xmlns="http://www.w3.org/2000/svg">
 			${ color === "white" ? svgs.githubCat : svgs.githubCatW }
 		</svg>
