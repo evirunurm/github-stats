@@ -2,29 +2,6 @@ const userData = require("../scripts/fetchers/fetchUserData");
 const card = require("../scripts/renderers/renderStatCard");
 const { VALID_USERNAME } = require("../scripts/utils/validators");
 
-// FOR DEV PURPOSES
-// const express = require("express");
-// const app = express();
-// app.listen(3000, (err) => {
-//     if (err) throw err;
-//     console.log("Server running at http://localhost:" + 3000);
-// });
-
-// app.get("/api/stats.js", async (req, res) => {
-//     const username = req.query.username;
-//     const color = req.query.color;
-//     const peng = (req.query.peng !== "false");
-//     try {
-//         const data = await userData.fetchUserData(username);
-//         res.setHeader("Content-Type", "image/svg+xml");
-//         return res.send(card.renderStatCard(data, color, peng));
-//     } catch (err) {
-//         console.log(err);
-//         res.send("Couldn´t fetch your data. Double-check your username is the same as your GitHubs's. Don't include the '@'. If it still doen't work plase send an email to evelinviru@gmail.com :(");
-//     }
-// });
-
-// FOR PROD
 module.exports = async (req, res) => {
     const username = req.query.username;
     const color = req.query.color;
@@ -48,6 +25,6 @@ module.exports = async (req, res) => {
         res.setHeader("Cache-Control", `public, max-age=${cacheSeconds}`);
         return res.send(card.renderStatCard(data, color, peng));
     } catch (err) {
-        res.send("Couldn´t fetch your data. Double-check your username is the same as your GitHubs's. Don't include the '@'. If it still doen't work plase send an email to evelinviru@gmail.com :(");
+        res.status(500).send("Couldn´t fetch your data. Double-check your username is the same as your GitHubs's. Don't include the '@'. If it still doen't work plase send an email to evelinviru@gmail.com :(");
     }
 };

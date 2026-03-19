@@ -68,34 +68,20 @@ const fetchUserData = async (user) => {
 	}
 
 	const countLanguages = (edges) => {
-		let languages = [];
-		let index;
+		const languageMap = new Map();
 
-		// Iterate through each repository
-		edges.forEach(function(repoEdge, index) {
-			// Iterate through each language
-			repoEdge.node.languages.edges.forEach(function(languageEdge, index) {
-				index = languages
-					.map((obj) => { return obj.name })
-					.indexOf(languageEdge.node.name);
-				if (index > -1) {
-					languages[index].count++;
-					return;
+		edges.forEach(function(repoEdge) {
+			repoEdge.node.languages.edges.forEach(function(languageEdge) {
+				const { name, color } = languageEdge.node;
+				if (languageMap.has(name)) {
+					languageMap.get(name).count++;
+				} else {
+					languageMap.set(name, { name, color, count: 1 });
 				}
-				languages.push({
-					name: languageEdge.node.name,
-					color: languageEdge.node.color,
-					count: 1
-				});
 			});
 		});
 
-		// [
-		// 	{ name: "JavaScript", color: "#xxxxx", count: 1 },
-		// 	{ name: "HTML", color: "#xxxxx", count: 5 },
-		// 	{ name: "CSS", color: "#xxxxx", count: 10 },
-		// ]
-		return languages
+		return Array.from(languageMap.values());
 	}
 
 	// PROD
