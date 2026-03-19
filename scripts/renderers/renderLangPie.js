@@ -1,4 +1,33 @@
 const svgs = require("../utils/svgs");
+const { CARD_WIDTH, CARD_HEIGHT, LANG_ITEM_COUNT, DIVIDER_Y } = require("../utils/constants");
+
+const calcPercentages = (languages) => {
+	// Deep copy of an array of objects
+	let langStats = JSON.parse(JSON.stringify(languages))
+		.slice(0, 5);
+
+	const totalCount = langStats
+		.reduce((accumulator, language) => {
+			return accumulator + language.count;
+		}, 0);
+
+	for (let i = 0; i < langStats.length - 1; i++) {
+		langStats[i].count = Math.round((100 * langStats[i].count) / totalCount);
+	}
+	const sumOfOthers = langStats.slice(0, -1).reduce((acc, lang) => acc + lang.count, 0);
+	langStats[langStats.length - 1].count = 100 - sumOfOthers;
+
+	langStats
+		.sort((a, b) => {
+			return a.count - b.count;
+		})
+		.reduce((accumulator, language) => {
+			language.accum = accumulator;
+			return accumulator + language.count
+		}, 0);
+
+	return langStats;
+}
 
 const renderLanguageCard = (userData, color) => {
 	let lightFontColor = "#A4A5A6";
@@ -12,20 +41,20 @@ const renderLanguageCard = (userData, color) => {
 		const element = `
 		<text
 		viewBox="0 0 16 16"
-		x="${ (textAttr.dir == "right") ? ((cardAttr.width / 2) - (text.length / 2 * ((textAttr.fontSize + 2) / 2))) - 10 : 1.8 * (cardAttr.height / 6)}"
-		y="${ (textAttr.title) ? textAttr.index * (cardAttr.height / (6 + 2)) + (cardAttr.height / (6 + 6)) : textAttr.index * (cardAttr.height / (6 + 2)) + (cardAttr.height / (cardAttr.children.length) - 3) }"
+		x="${ (textAttr.dir == "right") ? ((cardAttr.width / 2) - (text.length / 2 * ((textAttr.fontSize + 2) / 2))) - 10 : 1.8 * (cardAttr.height / LANG_ITEM_COUNT)}"
+		y="${ (textAttr.title) ? textAttr.index * (cardAttr.height / (LANG_ITEM_COUNT + 2)) + (cardAttr.height / (LANG_ITEM_COUNT + LANG_ITEM_COUNT)) : textAttr.index * (cardAttr.height / (LANG_ITEM_COUNT + 2)) + (cardAttr.height / (cardAttr.children.length) - 3) }"
 		width="16"
 		height="16"
 		style=" font: ${ textAttr.weight } ${ (textAttr.title) ? (textAttr.fontSize + 2) : textAttr.fontSize }px 'Segoe UI', Ubuntu, Sans-Serif; fill:${ textAttr.color }; ">
 		${ text }
 		</text>
-		${ (textAttr.title) ? `<line x1="${ cardAttr.width / 10 }" x2="${ cardAttr.width - (cardAttr.width / 10) }" y1="44" y2="44" stroke="${ normalFontColor }" />` : "" }
+		${ (textAttr.title) ? `<line x1="${ cardAttr.width / 10 }" x2="${ cardAttr.width - (cardAttr.width / 10) }" y1="${ DIVIDER_Y }" y2="${ DIVIDER_Y }" stroke="${ normalFontColor }" />` : "" }
 		`
 		return element;
 	}
 
 	const createIcon = (language, line) => {
-		const icon = `<rect x="${ (cardAttr.height / 6) + 2 }" y="${ line * (cardAttr.height / (6 + 2)) + (cardAttr.height / (cardAttr.children.length) + 6) }" width="12" height="12" viewBox="0 0 8 8" fill="${ language.color }"  />
+		const icon = `<rect x="${ (cardAttr.height / LANG_ITEM_COUNT) + 2 }" y="${ line * (cardAttr.height / (LANG_ITEM_COUNT + 2)) + (cardAttr.height / (cardAttr.children.length) + 6) }" width="12" height="12" viewBox="0 0 8 8" fill="${ language.color }"  />
 		`
 		return icon;
 	}
@@ -37,34 +66,6 @@ const renderLanguageCard = (userData, color) => {
 		fontSize: 14,
 		dir: "left",
 		title: false
-	}
-
-	const calcPercentages = (languages) => {
-		// Deep copy of an array of objects
-		let langStats = JSON.parse(JSON.stringify(languages))
-			.slice(0, 5);
-
-		const totalCount = langStats
-			.reduce((accumulator, language) => {
-				return accumulator + language.count;
-			}, 0);
-
-		for (let i = 0; i < langStats.length - 1; i++) {
-			langStats[i].count = Math.round((100 * langStats[i].count) / totalCount);
-		}
-		const sumOfOthers = langStats.slice(0, -1).reduce((acc, lang) => acc + lang.count, 0);
-		langStats[langStats.length - 1].count = 100 - sumOfOthers;
-
-		langStats
-			.sort((a, b) => {
-				return a.count - b.count;
-			})
-			.reduce((accumulator, language) => {
-				language.accum = accumulator;
-				return accumulator + language.count
-			}, 0);
-
-		return langStats;
 	}
 
 	const languageStats = calcPercentages(userData.languages);
@@ -82,8 +83,8 @@ const renderLanguageCard = (userData, color) => {
 	}
 
 	const cardAttr = {
-		width: 290,
-		height: 160,
+		width: CARD_WIDTH,
+		height: CARD_HEIGHT,
 		background: `${ (color === "white") ? "white" : "#161B22"}`,
 		style: "border-radius: 10px;",
 		children: languageStatsDesc.reduce((acc, item) => [...acc, item.name], ["Most used languages"])
@@ -101,7 +102,7 @@ const renderLanguageCard = (userData, color) => {
 
 	mountText();
 	return `
-	<svg 
+	<svg
 		id="userCard"
 		width="${ cardAttr.width }"
 		height="${ cardAttr.height }"
@@ -121,10 +122,10 @@ const renderLanguageCard = (userData, color) => {
 				stroke:${ lightFontColor };
 				stroke-width:1;
 			"
-		/> 
+		/>
 		${ cardAttr.children.map(child => child).join('') }
 		${ languageStatsDesc.map((child, index) => createIcon(child, index + 1)) }
-		<svg x="${ ((cardAttr.width / 2) + ((userData.user + "@'s GitHub").length / 2 * ((textAttr.fontSize + 2) / 2))) }" y="${ (cardAttr.height / (6) - 6) }" width="19" height="15" viewBox="0 0 19 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+		<svg x="${ ((cardAttr.width / 2) + ((userData.user + "@'s GitHub").length / 2 * ((textAttr.fontSize + 2) / 2))) }" y="${ (cardAttr.height / LANG_ITEM_COUNT - 6) }" width="19" height="15" viewBox="0 0 19 15" fill="none" xmlns="http://www.w3.org/2000/svg">
 			${ color === "white" ? svgs.githubCat : svgs.githubCatW }
 		</svg>
 		<svg viewBox="-60 -15 ${ cardAttr.width - 200 } ${ cardAttr.height - 120 }" >
@@ -136,3 +137,4 @@ const renderLanguageCard = (userData, color) => {
 }
 
 exports.renderLanguageCard = renderLanguageCard;
+exports.calcPercentages = calcPercentages;

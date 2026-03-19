@@ -1,4 +1,5 @@
 const svgs = require("../utils/svgs");
+const { CARD_WIDTH, CARD_HEIGHT, DIVIDER_Y } = require("../utils/constants");
 
 const renderStatCard = (userData, color, peng) => {
 	let lightFontColor = "#A4A5A6";
@@ -21,7 +22,7 @@ const renderStatCard = (userData, color, peng) => {
 		style=" font: ${ textAttr.weight } ${ (textAttr.title) ? (textAttr.fontSize + 2) : textAttr.fontSize }px 'Segoe UI', Ubuntu, Sans-Serif; fill:${ textAttr.color }; ">
 		${ text }
 		</text>
-		${ (textAttr.title) ? `<line x1="${ cardAttr.width / 10 }" x2="${ cardAttr.width - (cardAttr.width / 10) }" y1="44" y2="44" stroke="${ normalFontColor }" />` : "" }
+		${ (textAttr.title) ? `<line x1="${ cardAttr.width / 10 }" x2="${ cardAttr.width - (cardAttr.width / 10) }" y1="${ DIVIDER_Y }" y2="${ DIVIDER_Y }" stroke="${ normalFontColor }" />` : "" }
 		`
 		return element;
 	}
@@ -44,8 +45,8 @@ const renderStatCard = (userData, color, peng) => {
 	}
 
 	const cardAttr = {
-		width: 290,
-		height: 160,
+		width: CARD_WIDTH,
+		height: CARD_HEIGHT,
 		background: `${ (color === "white") ? "white" : "#161B22"}`,
 		style: "border-radius: 10px;",
 		children: [
