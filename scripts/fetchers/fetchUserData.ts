@@ -114,4 +114,4 @@ totalCount
 	return getDataObj(data);
 };
 
-exports.fetchUserData = fetchUserData;
+export { fetchUserData };

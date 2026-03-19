@@ -1,4 +1,4 @@
-const { VALID_USERNAME } = require('../scripts/utils/validators');
+import { VALID_USERNAME } from '../scripts/utils/validators';
 
 describe('VALID_USERNAME', () => {
 	test('accepts valid usernames', () => {

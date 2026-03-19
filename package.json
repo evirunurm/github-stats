@@ -22,8 +22,8 @@
   "scripts": {
     "test": "jest",
     "typecheck": "tsc --noEmit",
-    "lint": "eslint \"api/**/*.{js,ts}\" \"scripts/**/*.{js,ts}\"",
-    "format": "prettier --write \"api/**/*.{js,ts}\" \"scripts/**/*.{js,ts}\""
+    "lint": "eslint \"api/**/*.{js,ts}\" \"scripts/**/*.{js,ts}\" \"tests/**/*.ts\"",
+    "format": "prettier --write \"api/**/*.{js,ts}\" \"scripts/**/*.{js,ts}\" \"tests/**/*.ts\""
   },
   "repository": {
     "type": "git",

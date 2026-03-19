@@ -129,4 +129,4 @@ const renderStatCard = (userData: UserStats, color: string, peng: boolean): stri
 	</svg>`;
 }
 
-exports.renderStatCard = renderStatCard;
+export { renderStatCard };
