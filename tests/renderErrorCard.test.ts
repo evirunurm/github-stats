@@ -1,5 +1,5 @@
-const { renderErrorCard } = require('../scripts/renderers/renderErrorCard');
-const { CARD_WIDTH, CARD_HEIGHT } = require('../scripts/utils/constants');
+import { renderErrorCard } from '../scripts/renderers/renderErrorCard';
+import { CARD_WIDTH, CARD_HEIGHT } from '../scripts/utils/constants';
 
 describe('renderErrorCard', () => {
 	test('returns an SVG string', () => {

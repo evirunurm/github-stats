@@ -128,5 +128,4 @@ const renderLanguageCard = (userData: UserLanguageStats, color: string): string 
 	</svg>`;
 }
 
-exports.renderLanguageCard = renderLanguageCard;
-exports.calcPercentages = calcPercentages;
+export { renderLanguageCard, calcPercentages };

@@ -1,22 +1,10 @@
 import { VALID_USERNAME } from "../scripts/utils/validators";
 import { CACHE_DURATION_SECONDS } from "../scripts/utils/constants";
 import type { VercelRequest, VercelResponse } from "../types/vercel";
-import type { UserLanguageStats } from "../types";
-
-/* eslint-disable @typescript-eslint/no-require-imports */
-const fetcherModule = require("../scripts/fetchers/fetchLanguages") as {
-    fetchUserData: (user: string) => Promise<UserLanguageStats>;
-};
-const pieChartModule = require("../scripts/renderers/renderLangPie") as {
-    renderLanguageCard: (userData: UserLanguageStats, color: string) => string;
-};
-const barChartModule = require("../scripts/renderers/renderLangPercent") as {
-    renderLanguageCard: (userData: UserLanguageStats, color: string) => string;
-};
-const errorModule = require("../scripts/renderers/renderErrorCard") as {
-    renderErrorCard: (message: string) => string;
-};
-/* eslint-enable @typescript-eslint/no-require-imports */
+import { fetchUserData } from "../scripts/fetchers/fetchLanguages";
+import { renderLanguageCard as renderLangPie } from "../scripts/renderers/renderLangPie";
+import { renderLanguageCard as renderLangPercent } from "../scripts/renderers/renderLangPercent";
+import { renderErrorCard } from "../scripts/renderers/renderErrorCard";
 
 export default async (req: VercelRequest, res: VercelResponse): Promise<void> => {
     const username = req.query.username as string;
@@ -38,16 +26,16 @@ export default async (req: VercelRequest, res: VercelResponse): Promise<void> =>
     }
 
     try {
-        const data = await fetcherModule.fetchUserData(username);
+        const data = await fetchUserData(username);
         res.setHeader("Content-Type", "image/svg+xml");
         res.setHeader("Cache-Control", `public, max-age=${CACHE_DURATION_SECONDS}`);
         if (pie) {
-            res.send(pieChartModule.renderLanguageCard(data, color ?? ""));
+            res.send(renderLangPie(data, color ?? ""));
             return;
         }
-        res.send(barChartModule.renderLanguageCard(data, color ?? ""));
+        res.send(renderLangPercent(data, color ?? ""));
     } catch {
         res.setHeader("Content-Type", "image/svg+xml");
-        res.status(500).send(errorModule.renderErrorCard("Could not fetch data"));
+        res.status(500).send(renderErrorCard("Could not fetch data"));
     }
 };

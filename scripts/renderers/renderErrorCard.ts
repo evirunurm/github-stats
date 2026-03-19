@@ -16,4 +16,4 @@ const renderErrorCard = (message: string): string => {
 	</svg>`;
 };
 
-exports.renderErrorCard = renderErrorCard;
+export { renderErrorCard };

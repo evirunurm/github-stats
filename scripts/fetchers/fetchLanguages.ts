@@ -109,5 +109,4 @@ const fetchUserData = async (user: string): Promise<UserLanguageStats> => {
 	return getDataObj(data);
 };
 
-// PROD
-exports.fetchUserData = fetchUserData;
+export { fetchUserData };

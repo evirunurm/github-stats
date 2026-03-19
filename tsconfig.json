@@ -11,6 +11,6 @@
     "resolveJsonModule": true,
     "allowJs": true
   },
-  "include": ["api/**/*", "scripts/**/*", "types/**/*"],
-  "exclude": ["node_modules", "dist", "tests"]
+  "include": ["api/**/*", "scripts/**/*", "types/**/*", "tests/**/*"],
+  "exclude": ["node_modules", "dist"]
 }

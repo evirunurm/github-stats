@@ -1,7 +1,8 @@
-const { calcPercentages: calcPercentagesPie } = require('../scripts/renderers/renderLangPie');
-const { calcPercentages: calcPercentagesBar } = require('../scripts/renderers/renderLangPercent');
+import { calcPercentages as calcPercentagesPie } from '../scripts/renderers/renderLangPie';
+import { calcPercentages as calcPercentagesBar } from '../scripts/renderers/renderLangPercent';
+import { LanguageData } from '../types';
 
-const mockLanguages = [
+const mockLanguages: LanguageData[] = [
 	{ name: 'JavaScript', color: '#f1e05a', count: 50 },
 	{ name: 'Python', color: '#3572A5', count: 30 },
 	{ name: 'TypeScript', color: '#2b7489', count: 10 },
