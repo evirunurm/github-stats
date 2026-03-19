@@ -1,0 +1,6 @@
+{
+  "redirects": [
+    { "source": "/api/stats.js", "destination": "/api/stats", "permanent": true },
+    { "source": "/api/languages.js", "destination": "/api/languages", "permanent": true }
+  ]
+}
