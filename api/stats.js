@@ -1,5 +1,6 @@
 const userData = require("../scripts/fetchers/fetchUserData");
 const card = require("../scripts/renderers/renderStatCard");
+const { VALID_USERNAME } = require("../scripts/utils/validators");
 
 // FOR DEV PURPOSES
 // const express = require("express");
@@ -27,7 +28,18 @@ const card = require("../scripts/renderers/renderStatCard");
 module.exports = async (req, res) => {
     const username = req.query.username;
     const color = req.query.color;
-    const peng = (req.query.peng !== "false");
+    const rawPeng = req.query.peng;
+    const peng = (rawPeng !== "false");
+
+    if (!VALID_USERNAME.test(username)) {
+        return res.status(400).send('Invalid username');
+    }
+    if (color !== undefined && color !== "white") {
+        return res.status(400).send('Invalid color');
+    }
+    if (rawPeng !== undefined && rawPeng !== "true" && rawPeng !== "false") {
+        return res.status(400).send('Invalid peng');
+    }
 
     try {
         const data = await userData.fetchUserData(username);
