@@ -8,10 +8,22 @@
     "express": "^4.17.3"
   },
   "devDependencies": {
-    "jest": "^30.3.0"
+    "@types/express": "^5.0.6",
+    "@types/jest": "^30.0.0",
+    "@types/node": "^25.5.0",
+    "eslint": "^9.39.4",
+    "eslint-config-prettier": "^10.1.8",
+    "jest": "^30.3.0",
+    "prettier": "^3.8.1",
+    "ts-jest": "^29.4.6",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.57.1"
   },
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint \"api/**/*.{js,ts}\" \"scripts/**/*.{js,ts}\"",
+    "format": "prettier --write \"api/**/*.{js,ts}\" \"scripts/**/*.{js,ts}\""
   },
   "repository": {
     "type": "git",
