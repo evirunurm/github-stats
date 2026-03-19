@@ -13,6 +13,13 @@ module.exports = tseslint.config(
     },
   },
   {
+    files: ["**/*.js"],
+    rules: {
+      "@typescript-eslint/no-require-imports": "off",
+      "@typescript-eslint/no-unused-vars": "off",
+    },
+  },
+  {
     ignores: ["node_modules/", "dist/", "jest.config.js", "eslint.config.js"],
   }
 );
