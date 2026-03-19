@@ -8,7 +8,8 @@
     "skipLibCheck": true,
     "outDir": "dist",
     "rootDir": ".",
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "allowJs": true
   },
   "include": ["api/**/*", "scripts/**/*"],
   "exclude": ["node_modules", "dist", "tests"]
