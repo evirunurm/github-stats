@@ -156,14 +156,11 @@ const StatCard = ({ userData, color, peng }: StatCardProps) => {
 				style={{
 					display: 'flex',
 					position: 'absolute',
-					bottom: -15,
-					right: -15,
-					width: 70,
-					height: 70,
-					overflow: 'hidden',
+					bottom: 10,
+					right: 5,
 				}}
 			>
-				<img src={decorSrc} width={75} height={75} />
+				<img src={decorSrc} width={60} height={85} />
 			</div>
 		</div>
 	);
