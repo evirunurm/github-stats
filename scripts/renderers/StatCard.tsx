@@ -145,7 +145,7 @@ const StatCard = ({ userData, color, peng }: StatCardProps) => {
 								color: valueColor,
 							}}
 						>
-							{' '}{values[i]}
+							{values[i]}
 						</span>
 					</div>
 				))}
