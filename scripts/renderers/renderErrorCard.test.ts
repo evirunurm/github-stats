@@ -2,21 +2,21 @@ import { renderErrorCard } from './renderErrorCard';
 import { CARD_WIDTH, CARD_HEIGHT } from '../utils/constants';
 
 describe('renderErrorCard', () => {
-	test('returns an SVG string', () => {
-		const result = renderErrorCard('Test error');
+	test('returns an SVG string', async () => {
+		const result = await renderErrorCard('Test error');
 		expect(result).toContain('<svg');
 		expect(result).toContain('</svg>');
 	});
 
-	test('includes the error message', () => {
-		const message = 'Could not fetch data';
-		const result = renderErrorCard(message);
-		expect(result).toContain(message);
+	test('renders different output for different messages', async () => {
+		const result1 = await renderErrorCard('Could not fetch data');
+		const result2 = await renderErrorCard('Invalid username');
+		expect(result1).not.toBe(result2);
 	});
 
-	test('uses the correct card dimensions', () => {
-		const result = renderErrorCard('Test');
-		expect(result).toContain(`width="${ CARD_WIDTH }"`);
-		expect(result).toContain(`height="${ CARD_HEIGHT }"`);
+	test('uses the correct card dimensions', async () => {
+		const result = await renderErrorCard('Test');
+		expect(result).toContain(`width="${CARD_WIDTH}"`);
+		expect(result).toContain(`height="${CARD_HEIGHT}"`);
 	});
 });

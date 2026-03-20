@@ -28,9 +28,9 @@ export default async (req: VercelRequest, res: VercelResponse): Promise<void> =>
         const data = await fetchUserStats(username);
         res.setHeader("Content-Type", "image/svg+xml");
         res.setHeader("Cache-Control", `public, max-age=${CACHE_DURATION_SECONDS}`);
-        res.send(renderStatCard(data, color ?? "", peng));
+        res.send(await renderStatCard(data, color ?? "", peng));
     } catch {
         res.setHeader("Content-Type", "image/svg+xml");
-        res.status(500).send(renderErrorCard("Could not fetch data"));
+        res.status(500).send(await renderErrorCard("Could not fetch data"));
     }
 };

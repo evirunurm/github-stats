@@ -1,4 +1,4 @@
-import { GitHubApiResponse } from "../../../types";
+import { GitHubApiResponse } from '../../../types';
 
 const MOCK_RESPONSE: GitHubApiResponse = {
   data: {
@@ -12,8 +12,9 @@ const MOCK_RESPONSE: GitHubApiResponse = {
               forkCount: 3,
               languages: {
                 edges: [
-                  { node: { name: "TypeScript", color: "#3178c6" } },
-                  { node: { name: "JavaScript", color: "#f1e05a" } },
+                  { node: { name: 'TypeScript', color: '#3178c6' } },
+                  { node: { name: 'JavaScript', color: '#f1e05a' } },
+                  { node: { name: 'SCSS', color: '#f15add' } },
                 ],
               },
             },
@@ -24,8 +25,8 @@ const MOCK_RESPONSE: GitHubApiResponse = {
               forkCount: 1,
               languages: {
                 edges: [
-                  { node: { name: "TypeScript", color: "#3178c6" } },
-                  { node: { name: "CSS", color: "#563d7c" } },
+                  { node: { name: 'TypeScript', color: '#3178c6' } },
+                  { node: { name: 'CSS', color: '#563d7c' } },
                 ],
               },
             },
@@ -35,7 +36,7 @@ const MOCK_RESPONSE: GitHubApiResponse = {
               stargazerCount: 5,
               forkCount: 0,
               languages: {
-                edges: [{ node: { name: "Python", color: "#3572A5" } }],
+                edges: [{ node: { name: 'Python', color: '#3572A5' } }],
               },
             },
           },
