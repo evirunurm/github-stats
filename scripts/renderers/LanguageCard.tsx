@@ -43,9 +43,10 @@ function buildPieSvgUri(languageStats: LanguageDataWithAccum[], bgColor: string)
     .join('');
 
   const svg =
-    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">` +
+    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="-1 -1 24 24">` +
     `<circle r="10" cx="10" cy="10" fill="${bgColor}"/>` +
     circles +
+    `<circle r="10" cx="10" cy="10" fill="none" stroke="white" stroke-width="1"/>` +
     `</svg>`;
 
   return `data:image/svg+xml;base64,${Buffer.from(svg).toString('base64')}`;

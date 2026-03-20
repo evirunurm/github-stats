@@ -33,9 +33,12 @@ describe('renderLangPie', () => {
 		expect(dark).not.toBe(white);
 	});
 
-	test('renders different output for different users', async () => {
+	test('renders different output for different language data', async () => {
 		const user1 = await renderLangPie(testUser, '');
-		const user2 = await renderLangPie({ ...testUser, user: 'otheruser' }, '');
+		const user2 = await renderLangPie({
+			...testUser,
+			languages: [{ name: 'Rust', color: '#DEA584', count: 10000 }],
+		}, '');
 		expect(user1).not.toBe(user2);
 	});
 });
