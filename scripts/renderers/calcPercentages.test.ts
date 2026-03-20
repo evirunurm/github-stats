@@ -1,6 +1,6 @@
-import { calcPercentages as calcPercentagesPie } from '../scripts/renderers/renderLangPie';
-import { calcPercentages as calcPercentagesBar } from '../scripts/renderers/renderLangPercent';
-import { LanguageData } from '../types';
+import { calcPercentages as calcPercentagesPie } from './renderLangPie';
+import { calcPercentages as calcPercentagesBar } from './renderLangPercent';
+import { LanguageData } from '../../types';
 
 const mockLanguages: LanguageData[] = [
 	{ name: 'JavaScript', color: '#f1e05a', count: 50 },
