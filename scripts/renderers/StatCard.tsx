@@ -160,7 +160,7 @@ const StatCard = ({ userData, color, peng }: StatCardProps) => {
 					right: 5,
 				}}
 			>
-				<img src={decorSrc} width={60} height={85} />
+				<img src={decorSrc} width={66} height={67} />
 			</div>
 		</div>
 	);
