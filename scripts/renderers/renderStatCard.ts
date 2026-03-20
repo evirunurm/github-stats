@@ -1,32 +1,16 @@
 import * as svgs from "../utils/svgs";
-import { CARD_WIDTH, CARD_HEIGHT, DIVIDER_Y } from "../utils/constants";
+import { CARD_WIDTH, CARD_HEIGHT, DIVIDER_Y, COLOR_SUBTLE, COLOR_LIGHT, COLOR_DARK } from "../utils/constants";
 import { UserStats } from "../../types";
-
-interface TextAttr {
-	weight: number;
-	index: number;
-	color: string;
-	fontSize: number;
-	dir: string;
-	title: boolean;
-}
-
-interface CardAttr {
-	width: number;
-	height: number;
-	background: string;
-	style: string;
-	children: string[];
-}
+import { TextAttr, CardAttr } from "./types";
 
 const renderStatCard = (userData: UserStats, color: string, peng: boolean): string => {
-	let lightFontColor = "#A4A5A6";
-	let normalFontColor = "#FFFFFF";
+	let lightFontColor = COLOR_SUBTLE;
+	let normalFontColor = COLOR_LIGHT;
 	const icons = [...svgs.icons];
 
 	if (color === "white") {
-		lightFontColor = "#161B22";
-		normalFontColor = "#161B22";
+		lightFontColor = COLOR_DARK;
+		normalFontColor = COLOR_DARK;
 	}
 
 	const createText = (text: string, textAttr: TextAttr): string => {
@@ -65,7 +49,7 @@ const renderStatCard = (userData: UserStats, color: string, peng: boolean): stri
 	const cardAttr: CardAttr = {
 		width: CARD_WIDTH,
 		height: CARD_HEIGHT,
-		background: `${ (color === "white") ? "white" : "#161B22"}`,
+		background: `${ (color === "white") ? "white" : COLOR_DARK}`,
 		style: "border-radius: 10px;",
 		children: [
 			`@${ userData.user }'s GitHub`,

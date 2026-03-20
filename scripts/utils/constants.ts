@@ -4,3 +4,6 @@ export const CACHE_DURATION_SECONDS: number = 72000;
 export const LANG_ITEM_COUNT: number = 6;
 export const DIVIDER_Y: number = 44;
 export const ERROR_DIVIDER_Y: number = 84;
+export const COLOR_SUBTLE: string = "#A4A5A6";
+export const COLOR_LIGHT: string = "#FFFFFF";
+export const COLOR_DARK: string = "#161B22";

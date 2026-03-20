@@ -1,5 +1,4 @@
-import { calcPercentages as calcPercentagesPie } from './renderLangPie';
-import { calcPercentages as calcPercentagesBar } from './renderLangPercent';
+import { calcPercentagesPie, calcPercentagesBar } from './calcPercentages';
 import { LanguageData } from '../../types';
 
 const mockLanguages: LanguageData[] = [
