@@ -9,7 +9,8 @@
     "outDir": "dist",
     "rootDir": ".",
     "resolveJsonModule": true,
-    "allowJs": true
+    "allowJs": true,
+    "jsx": "react-jsx"
   },
   "include": ["api/**/*", "scripts/**/*", "types/**/*"],
   "exclude": ["node_modules", "dist"]
