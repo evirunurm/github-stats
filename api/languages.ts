@@ -1,7 +1,7 @@
 import { VALID_USERNAME } from "../scripts/utils/validators";
 import { CACHE_DURATION_SECONDS } from "../scripts/utils/constants";
 import type { VercelRequest, VercelResponse } from "../types/vercel";
-import { fetchUserData } from "../scripts/fetchers/fetchLanguages";
+import { fetchUserLanguages } from "../scripts/github/fetchUserLanguages";
 import { renderLanguageCard as renderLangPie } from "../scripts/renderers/renderLangPie";
 import { renderLanguageCard as renderLangPercent } from "../scripts/renderers/renderLangPercent";
 import { renderErrorCard } from "../scripts/renderers/renderErrorCard";
@@ -26,7 +26,7 @@ export default async (req: VercelRequest, res: VercelResponse): Promise<void> =>
     }
 
     try {
-        const data = await fetchUserData(username);
+        const data = await fetchUserLanguages(username);
         res.setHeader("Content-Type", "image/svg+xml");
         res.setHeader("Cache-Control", `public, max-age=${CACHE_DURATION_SECONDS}`);
         if (pie) {
