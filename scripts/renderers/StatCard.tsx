@@ -24,11 +24,11 @@ const NO_PENGUIN = toDataUri(join(standaloneDir, 'no_penguin.svg'));
 const NO_PENGUIN_WHITE = toDataUri(join(standaloneDir, 'no_penguin_white.svg'));
 
 const STAT_ROWS: { label: string }[] = [
-	{ label: 'Followers: ' },
-	{ label: 'Repositories: ' },
-	{ label: 'Stars: ' },
-	{ label: 'Forks: ' },
-	{ label: 'Total Contributions: ' },
+	{ label: 'Followers:' },
+	{ label: 'Repositories:' },
+	{ label: 'Stars:' },
+	{ label: 'Forks:' },
+	{ label: 'Total Contributions:' },
 ];
 
 interface StatCardProps {
@@ -145,7 +145,7 @@ const StatCard = ({ userData, color, peng }: StatCardProps) => {
 								color: valueColor,
 							}}
 						>
-							{values[i]}
+							{' '}{values[i]}
 						</span>
 					</div>
 				))}
@@ -156,14 +156,14 @@ const StatCard = ({ userData, color, peng }: StatCardProps) => {
 				style={{
 					display: 'flex',
 					position: 'absolute',
-					bottom: -10,
-					right: -10,
-					width: 80,
-					height: 80,
+					bottom: -20,
+					right: -20,
+					width: 70,
+					height: 70,
 					overflow: 'hidden',
 				}}
 			>
-				<img src={decorSrc} width={80} height={80} />
+				<img src={decorSrc} width={70} height={70} />
 			</div>
 		</div>
 	);
