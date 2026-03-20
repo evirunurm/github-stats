@@ -1,47 +1,15 @@
 import * as svgs from "../utils/svgs";
-import { CARD_WIDTH, CARD_HEIGHT, LANG_ITEM_COUNT, DIVIDER_Y } from "../utils/constants";
+import { CARD_WIDTH, CARD_HEIGHT, LANG_ITEM_COUNT, DIVIDER_Y, COLOR_SUBTLE, COLOR_LIGHT, COLOR_DARK } from "../utils/constants";
 import { LanguageData, UserLanguageStats } from "../../types";
-
-interface TextAttr {
-	weight: number;
-	index: number;
-	color: string;
-	fontSize: number;
-	dir: string;
-	title: boolean;
-}
-
-interface CardAttr {
-	width: number;
-	height: number;
-	background: string;
-	style: string;
-	children: string[];
-}
-
-const calcPercentages = (languages: LanguageData[]): LanguageData[] => {
-	// Deep copy of an array of objects
-	const langStats: LanguageData[] = JSON.parse(JSON.stringify(languages))
-		.slice(0, 5);
-
-	const totalCount = langStats
-		.reduce((accumulator: number, language: LanguageData) => {
-			return accumulator + language.count;
-		}, 0);
-
-	for (let i = 0; i < langStats.length; i++) {
-		langStats[i].count = Math.round((100 * langStats[i].count) / totalCount);
-	}
-
-	return langStats;
-}
+import { TextAttr, CardAttr } from "./types";
+import { calcPercentagesBar as calcPercentages } from "./calcPercentages";
 
 const renderLanguageCard = (userData: UserLanguageStats, color: string): string => {
-	let lightFontColor = "#A4A5A6";
-	let normalFontColor = "#FFFFFF";
+	let lightFontColor = COLOR_SUBTLE;
+	let normalFontColor = COLOR_LIGHT;
 	if (color === "white") {
-		lightFontColor = "#161B22";
-		normalFontColor = "#161B22";
+		lightFontColor = COLOR_DARK;
+		normalFontColor = COLOR_DARK;
 	}
 
 	const createText = (text: string, textAttr: TextAttr): string => {
@@ -81,7 +49,7 @@ const renderLanguageCard = (userData: UserLanguageStats, color: string): string 
 	const cardAttr: CardAttr = {
 		width: CARD_WIDTH,
 		height: CARD_HEIGHT,
-		background: `${ (color === "white") ? "white" : "#161B22"}`,
+		background: `${ (color === "white") ? "white" : COLOR_DARK}`,
 		style: "border-radius: 10px;",
 		children: languageStats.reduce((acc: string[], item) => [...acc, item.name], ["Most used languages"])
 	}
@@ -128,4 +96,5 @@ const renderLanguageCard = (userData: UserLanguageStats, color: string): string 
 	</svg>`;
 }
 
-export { renderLanguageCard, calcPercentages };
+export { renderLanguageCard };
+export { calcPercentagesBar as calcPercentages } from "./calcPercentages";

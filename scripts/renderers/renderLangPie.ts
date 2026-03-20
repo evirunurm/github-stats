@@ -1,63 +1,15 @@
 import * as svgs from "../utils/svgs";
-import { CARD_WIDTH, CARD_HEIGHT, LANG_ITEM_COUNT, DIVIDER_Y } from "../utils/constants";
-import { LanguageData, UserLanguageStats } from "../../types";
-
-/** Extended LanguageData with an accumulated percentage offset used for pie chart arc drawing. */
-interface LanguageDataWithAccum extends LanguageData {
-	accum: number;
-}
-
-interface TextAttr {
-	weight: number;
-	index: number;
-	color: string;
-	fontSize: number;
-	dir: string;
-	title: boolean;
-}
-
-interface CardAttr {
-	width: number;
-	height: number;
-	background: string;
-	style: string;
-	children: string[];
-}
-
-const calcPercentages = (languages: LanguageData[]): LanguageDataWithAccum[] => {
-	// Deep copy of an array of objects
-	const langStats: LanguageDataWithAccum[] = JSON.parse(JSON.stringify(languages))
-		.slice(0, 5);
-
-	const totalCount = langStats
-		.reduce((accumulator: number, language: LanguageDataWithAccum) => {
-			return accumulator + language.count;
-		}, 0);
-
-	for (let i = 0; i < langStats.length - 1; i++) {
-		langStats[i].count = Math.round((100 * langStats[i].count) / totalCount);
-	}
-	const sumOfOthers = langStats.slice(0, -1).reduce((acc: number, lang: LanguageDataWithAccum) => acc + lang.count, 0);
-	langStats[langStats.length - 1].count = 100 - sumOfOthers;
-
-	langStats
-		.sort((a: LanguageDataWithAccum, b: LanguageDataWithAccum) => {
-			return a.count - b.count;
-		})
-		.reduce((accumulator: number, language: LanguageDataWithAccum) => {
-			language.accum = accumulator;
-			return accumulator + language.count
-		}, 0);
-
-	return langStats;
-}
+import { CARD_WIDTH, CARD_HEIGHT, LANG_ITEM_COUNT, DIVIDER_Y, COLOR_SUBTLE, COLOR_LIGHT, COLOR_DARK } from "../utils/constants";
+import { UserLanguageStats } from "../../types";
+import { TextAttr, CardAttr, LanguageDataWithAccum } from "./types";
+import { calcPercentagesPie as calcPercentages } from "./calcPercentages";
 
 const renderLanguageCard = (userData: UserLanguageStats, color: string): string => {
-	let lightFontColor = "#A4A5A6";
-	let normalFontColor = "#FFFFFF";
+	let lightFontColor = COLOR_SUBTLE;
+	let normalFontColor = COLOR_LIGHT;
 	if (color === "white") {
-		lightFontColor = "#161B22";
-		normalFontColor = "#161B22";
+		lightFontColor = COLOR_DARK;
+		normalFontColor = COLOR_DARK;
 	}
 
 	const createText = (text: string, textAttr: TextAttr): string => {
@@ -108,7 +60,7 @@ const renderLanguageCard = (userData: UserLanguageStats, color: string): string 
 	const cardAttr: CardAttr = {
 		width: CARD_WIDTH,
 		height: CARD_HEIGHT,
-		background: `${ (color === "white") ? "white" : "#161B22"}`,
+		background: `${ (color === "white") ? "white" : COLOR_DARK}`,
 		style: "border-radius: 10px;",
 		children: languageStatsDesc.reduce((acc: string[], item) => [...acc, item.name], ["Most used languages"])
 	}
@@ -159,4 +111,5 @@ const renderLanguageCard = (userData: UserLanguageStats, color: string): string 
 
 }
 
-export { renderLanguageCard, calcPercentages };
+export { renderLanguageCard };
+export { calcPercentagesPie as calcPercentages } from "./calcPercentages";
