@@ -30,10 +30,10 @@ export default async (req: VercelRequest, res: VercelResponse): Promise<void> =>
         res.setHeader("Content-Type", "image/svg+xml");
         res.setHeader("Cache-Control", `public, max-age=${CACHE_DURATION_SECONDS}`);
         if (pie) {
-            res.send(renderLangPie(data, color ?? ""));
+            res.send(await renderLangPie(data, color ?? ""));
             return;
         }
-        res.send(renderLangPercent(data, color ?? ""));
+        res.send(await renderLangPercent(data, color ?? ""));
     } catch {
         res.setHeader("Content-Type", "image/svg+xml");
         res.status(500).send(await renderErrorCard("Could not fetch data"));
