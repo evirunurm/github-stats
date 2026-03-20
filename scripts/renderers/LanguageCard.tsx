@@ -137,8 +137,8 @@ const LanguageCard = ({ userData, color, chartType }: LanguageCardProps) => {
           justifyContent: 'space-around',
           paddingTop: 8,
           paddingBottom: 8,
-          paddingLeft: 14,
-          paddingRight: 14,
+          paddingLeft: 27,
+          paddingRight: 27,
         }}
       >
         {languageStats.map((lang, i) => (
