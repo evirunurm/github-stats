@@ -44,13 +44,27 @@ interface StatCardProps {
   peng: boolean;
 }
 
+type DecorImage = 'penguin' | 'no_penguin' | 'no_penguin_white';
+
+const getDecordImage = (image: DecorImage) => {
+  switch (image) {
+    case 'penguin':
+      return <img src={PENGUIN} width={66} height={70} />;
+    case 'no_penguin':
+      return <img src={NO_PENGUIN} width={60} height={60} />;
+    case 'no_penguin_white':
+      return <img src={NO_PENGUIN_WHITE} width={60} height={60} />;
+  }
+};
+
 const StatCard = ({ userData, color, peng }: StatCardProps) => {
   const isWhite = color === 'white';
   const background = isWhite ? COLOR_LIGHT : COLOR_DARK;
   const labelColor = COLOR_SUBTLE;
   const valueColor = isWhite ? COLOR_DARK : COLOR_LIGHT;
   const githubCatSrc = isWhite ? GITHUB_CAT : GITHUB_CAT_WHITE;
-  const decorSrc = !peng || isWhite ? (isWhite ? NO_PENGUIN : NO_PENGUIN_WHITE) : PENGUIN;
+  const decor: DecorImage =
+    !peng || isWhite ? (isWhite ? 'no_penguin' : 'no_penguin_white') : 'penguin';
 
   const values = [
     userData.amountFollowers,
@@ -168,7 +182,7 @@ const StatCard = ({ userData, color, peng }: StatCardProps) => {
           transform: 'translate(50%, 50%)',
         }}
       >
-        <img src={decorSrc} width={66} height={70} />
+        {getDecordImage(decor)}
       </div>
     </div>
   );
