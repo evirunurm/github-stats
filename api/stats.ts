@@ -1,7 +1,7 @@
 import { VALID_USERNAME } from "../scripts/utils/validators";
 import { CACHE_DURATION_SECONDS } from "../scripts/utils/constants";
 import type { VercelRequest, VercelResponse } from "../types/vercel";
-import { fetchUserData } from "../scripts/fetchers/fetchUserData";
+import { fetchUserStats } from "../scripts/github/fetchUserStats";
 import { renderStatCard } from "../scripts/renderers/renderStatCard";
 import { renderErrorCard } from "../scripts/renderers/renderErrorCard";
 
@@ -25,7 +25,7 @@ export default async (req: VercelRequest, res: VercelResponse): Promise<void> =>
     }
 
     try {
-        const data = await fetchUserData(username);
+        const data = await fetchUserStats(username);
         res.setHeader("Content-Type", "image/svg+xml");
         res.setHeader("Cache-Control", `public, max-age=${CACHE_DURATION_SECONDS}`);
         res.send(renderStatCard(data, color ?? "", peng));
