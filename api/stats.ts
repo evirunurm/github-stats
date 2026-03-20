@@ -31,6 +31,6 @@ export default async (req: VercelRequest, res: VercelResponse): Promise<void> =>
         res.send(renderStatCard(data, color ?? "", peng));
     } catch {
         res.setHeader("Content-Type", "image/svg+xml");
-        res.status(500).send(renderErrorCard("Could not fetch data"));
+        res.status(500).send(await renderErrorCard("Could not fetch data"));
     }
 };
