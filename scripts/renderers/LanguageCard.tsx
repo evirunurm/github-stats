@@ -10,6 +10,7 @@ import {
   COLOR_LIGHT,
   COLOR_DARK,
 } from '../utils/constants';
+import { typography, colors } from '../tokens/thockitty';
 import { calcPercentagesPie, calcPercentagesBar } from './calcPercentages';
 
 const standaloneDir = join(__dirname, '../assets/svgs/standalone');
@@ -106,9 +107,9 @@ const LanguageCard = ({ userData, color, chartType }: LanguageCardProps) => {
               />
               <span
                 style={{
-                  fontFamily: 'Inter',
-                  fontWeight: 400,
-                  fontSize: 14,
+                  fontFamily: typography.fontFamily.sans,
+                  fontWeight: typography.fontWeight.regular,
+                  fontSize: typography.fontSize.bodySmall,
                   color: labelColor,
                 }}
               >
@@ -126,7 +127,7 @@ const LanguageCard = ({ userData, color, chartType }: LanguageCardProps) => {
 
   const renderBarContent = () => {
     const languageStats = calcPercentagesBar(userData.languages).sort((a, b) => b.count - a.count);
-    const trackColor = isWhite ? '#E0E0E0' : '#2A3A4A';
+    const trackColor = isWhite ? colors.gray200 : colors.gray700;
 
     return (
       <div
@@ -155,9 +156,9 @@ const LanguageCard = ({ userData, color, chartType }: LanguageCardProps) => {
             />
             <span
               style={{
-                fontFamily: 'Inter',
-                fontWeight: 400,
-                fontSize: 11,
+                fontFamily: typography.fontFamily.sans,
+                fontWeight: typography.fontWeight.regular,
+                fontSize: typography.fontSize.caption,
                 color: labelColor,
                 width: 80,
                 flexShrink: 0,
@@ -216,9 +217,9 @@ const LanguageCard = ({ userData, color, chartType }: LanguageCardProps) => {
       >
         <span
           style={{
-            fontFamily: 'Inter',
-            fontWeight: 600,
-            fontSize: 14,
+            fontFamily: typography.fontFamily.sans,
+            fontWeight: typography.fontWeight.bold,
+            fontSize: typography.fontSize.bodySmall,
             color: titleColor,
           }}
         >
