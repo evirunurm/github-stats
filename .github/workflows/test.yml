@@ -22,7 +22,7 @@ jobs:
           registry-url: https://npm.pkg.github.com
       - run: npm ci
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - run: npm test
       - run: npm run typecheck
       - run: npm run lint
