@@ -1,4 +1,5 @@
-import { CARD_WIDTH, CARD_HEIGHT, ERROR_DIVIDER_Y, COLOR_DARK, COLOR_SUBTLE } from '../utils/constants';
+import { CARD_WIDTH, CARD_HEIGHT, ERROR_DIVIDER_Y, COLOR_DARK, COLOR_SUBTLE, COLOR_ERROR } from '../utils/constants';
+import { typography } from '../tokens/thockitty';
 
 const DIVIDER_WIDTH = CARD_WIDTH - 2 * Math.round(CARD_WIDTH / 10);
 
@@ -29,10 +30,10 @@ const ErrorCard = ({ message }: ErrorCardProps) => (
 		>
 			<span
 				style={{
-					fontFamily: 'Inter',
-					fontWeight: 600,
-					fontSize: 14,
-					color: '#FF6B6B',
+					fontFamily: typography.fontFamily.sans,
+					fontWeight: typography.fontWeight.bold,
+					fontSize: typography.fontSize.bodySmall,
+					color: COLOR_ERROR,
 				}}
 			>
 				Error
@@ -57,9 +58,9 @@ const ErrorCard = ({ message }: ErrorCardProps) => (
 		>
 			<span
 				style={{
-					fontFamily: 'Inter',
-					fontWeight: 400,
-					fontSize: 12,
+					fontFamily: typography.fontFamily.sans,
+					fontWeight: typography.fontWeight.regular,
+					fontSize: typography.fontSize.caption,
 					color: COLOR_SUBTLE,
 				}}
 			>
